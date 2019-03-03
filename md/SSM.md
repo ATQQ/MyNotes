@@ -63,6 +63,29 @@
     </bean>
     ```
 
+    7. SpringMVC配置
+
+    ```xml
+	<mvc:annotation-driven />
+
+
+
+	<!--定义不被拦截的静态资源-->
+	<mvc:resources location="/" mapping="/**/*.html"/>
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+
+	<!-- 配置视图解析器 -->
+	<bean	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 前缀 -->
+		<property name="prefix" value="/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+    ```
+
 * db.proporties
     ```
     jdbc.driverClass=com.mysql.jdbc.Driver
