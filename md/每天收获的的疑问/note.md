@@ -160,3 +160,61 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuaW5naGFvLm5ldCIsImV4cCI6IjE0Mzg
     person = JSON.parse(localStorage.getItem(“person”));
 
     ```
+
+# 解决微信小程序用 SpringMVC 处理http post时请求返回415错误
+
+## **写微信小程序时遇到的问题,这个坑硬是让我整了半天**
+[wx.request](https://developers.weixin.qq.com/miniprogram/dev/api/wx.request.html)请求跟ajax类似处理方法一致
+
+* 小程序端请求代码
+```javascript
+wx.request({
+      url:baseUrl+'user/login',
+      header: {
+        'content-type': 'application/json;charset=utf-8' // 默认值
+      },
+      method:'POST',
+      data:JSON.stringify({
+      "username": this.data.username,
+      "password": this.data.password
+      }),
+      success:function (res) {
+        console.log(res.data);
+      },
+      fail:function (res) {
+        wx.showToast({
+          title: '登录失败,检查网络',
+          icon: 'none',
+          duration: 2000        //  2秒后自动关闭
+        })
+      }
+    })
+```
+  因为小程序的默认请求content-type 为 application/json 所以SpringMVC需要使用接收json格式内容的方式
+
+  * SpringMVC 代码
+  ```java
+    @RequestMapping(value = "login",method =RequestMethod.POST)
+    @ResponseBody
+    public String login(@RequestBody User user){
+        System.out.println(user);
+        return SUCCESS;
+  ```
+在对应的对象参数前面加上 @RequestBody即可
+
+**如果以上还不能解决 415错误**
+
+1. 请检查一下jar 包是否导入了[jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/)相关的包,我用的是2.96版本,其余版本戳蓝色标签可自行下载
+   * jackson-annotations
+   * jackson-databind
+   * jackson-core
+
+2. 检查Spring配置是否添加了注解驱动
+ ```xml
+ <!--开启注解驱动-->
+    <mvc:annotation-driven/>
+ ```
+
+ **finally**
+ 
+ 参照以上方法,我相信大家都能解决这个问题了,如果还不能解决 请私信我.
