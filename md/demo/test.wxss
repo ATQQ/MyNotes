@@ -1,0 +1,11 @@
+.test {
+  font-size: 90px;
+}
+.test p {
+  color: #fff;
+}
+.test p:focus {
+  color: aqua;
+}
+
+
