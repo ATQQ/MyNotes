@@ -339,5 +339,428 @@
 
 * 承压计算
   ```c++
+
   
   ```
+
+* 分巧克力
+  ```C++
+  //暴力枚举
+  #include <iostream>
+  #include <algorithm>
+  #include<stdio.h>
+  
+  using namespace std;
+  typedef long long LL; 
+  
+  int main(int argc, char *argv[])
+  {
+  	int N,K;
+  	cin>>N>>K;
+  	int *w=new int[N];
+  	int *h=new int[N];
+  	for(int i=0;i<N;i++){
+  		cin>>w[i]>>h[i];
+  	}
+  	
+  	int len=10000;
+  	
+  	while(len>0){
+  	int ans=0;
+  	for(int i=0;i<N;i++)
+  		ans+=(w[i]/len)*(h[i]/len);
+  		if(ans>K)
+  		break;
+  		len--;	
+  	}	
+  	cout<<len<<endl;
+  	return 0;
+  }
+
+  ```
+  ```C++
+  //二分枚举
+    #include <iostream>
+    #include <algorithm>
+    #include<stdio.h>
+
+    using namespace std;
+
+    int main(int argc, char *argv[])
+    {
+    	int N,K;
+    	cin>>N>>K;
+    	int *w=new int[N];
+    	int *h=new int[N];
+    	for(int i=0;i<N;i++){
+    		cin>>w[i]>>h[i];
+    	}
+
+    	int l=1;
+    	int r=10001;
+    	int mid=0;
+    	int res=0;
+    	while(l<=r){
+    		int ans=0;
+    		mid=(r+l)/2;
+    		for(int i=0;i<N;i++)
+    			ans+=(w[i]/mid)*(h[i]/mid);
+    
+    		if(ans>=K){
+    			l=mid+1;
+    			res=mid;			
+    		}
+    		else{
+    			r=mid-1;			
+    		}
+    
+    	}	
+    	cout<<res<<endl;
+    	return 0;
+    }
+
+  ```
+
+* K倍区间
+```C++
+//宝丽美剧
+#include <iostream>
+#include <algorithm>
+#include<stdio.h>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	int n,k;
+	cin>>n>>k;
+	int *a=new int[n];
+	for(int i=0;i<n;i++)
+		cin>>a[i];
+	int count=0;
+	for(int i=0;i<n;i++){
+		int sum=0;
+		for(int j=i;j<n;j++){
+			sum+=a[j];
+			if(sum%k==0){
+				count++;
+			}
+		}
+	} 
+	cout<<count<<endl;
+	return 0;
+}
+
+```
+```c++
+//前缀和
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+typedef long long LL;
+int main(int argc, char *argv[])
+{
+	int n,k;
+	cin>>n>>k;
+	int *a=new int[n];
+	int *s=new int[n+1];
+	int count=0;
+	s[0]=0;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+		s[i+1]=s[i]+a[i];
+	}
+
+	for(int i=1;i<=n;i++){
+		for(int j=i;j<=n;j++){
+			if((s[j]-s[i-1])%k==0)
+			count++;
+		}
+	} 
+	cout<<count<<endl;
+	return 0;
+}
+
+```
+```C++
+//优化枚举
+#include <iostream>
+#include <algorithm>
+#include<map>
+
+using namespace std;
+typedef long long LL;
+map<int,int> cnt;
+int main(int argc, char *argv[])
+{
+	int n,k;
+	cin>>n>>k;
+	int *a=new int[n];
+	int *s=new int[n+1];
+	LL count=0;
+	cnt[0]=1;
+	s[0]=0;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+		s[i+1]=(s[i]+a[i])%k;
+		cnt[s[i+1]]++;
+	}
+
+	for(int i=0;i<k;i++){
+		count+=(LL)cnt[i]*(cnt[i]-1)/2;
+	} 
+	cout<<count<<endl;
+	return 0;
+}
+```
+
+* 堆煤球
+```c++
+#include <iostream>
+#include <algorithm>
+#include<map>
+
+using namespace std;
+typedef long long LL;
+int main(int argc, char *argv[])
+{
+	int sum=1;
+	int i=1;
+	int j=2;
+	for(int k=2;k<=100;k++){
+		i+=j;
+		sum+=i;
+		j++;
+	}
+	cout<<sum<<endl;
+	return 0;
+}
+
+```
+* 吹蜡烛
+```C++
+//暴力枚举
+#include <iostream>
+#include <algorithm>
+#include<map>
+
+using namespace std;
+int main(int argc, char *argv[])
+{
+	for(int i=1;i<100;i++){
+		int sum=0;
+		for(int j=i;j<100;j++){
+			sum+=j;
+			if(sum==236){
+				cout<<i<<endl;
+				return 0;
+			}
+		}
+	}
+	return 0;
+}
+
+```
+* 快排
+```C++
+#include <iostream>
+#include <algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+void swap(int *a,int i, int j){
+	int t=a[i];
+	a[i]=a[j];
+	a[j]=t;
+}
+int partition(int *a,int p,int r){
+	int i=p;
+	int j=r+1;
+	int x=a[p];
+	while(1){
+		while(i<r&&a[++i]<x);
+		while(a[--j]>x&&j>p);
+		if(i>=j)
+		break;
+		swap(a,i,j);
+	}
+	swap(a,p,j);
+	return j;
+}
+void quicksort(int *a,int p,int r){
+	
+	if(p<r){
+		int q=partition(a,p,r);
+		quicksort(a,p,q-1);
+		quicksort(a,q+1,r);
+	}
+}
+
+int main(int argc, char *argv[])
+{ 
+	int a[]={1,3,2,5,6,34,12,31,12,53};
+	quicksort(a,0,9);
+	for(int i=0;i<10;i++){
+		cout<<a[i]<<ends;
+	}
+	return 0;
+}
+
+```
+* 全排列
+```C++
+#include <iostream>
+#include <algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+
+	int a[]={1,2,3,4,5,6,7,8,9,10};
+	void print(){
+		for(int i=0;i<10;i++){
+			cout<<a[i]<<ends;
+		}
+		cout<<endl;
+	}
+int main(int argc, char *argv[])
+{ 
+	int ans=0;
+	do{
+		ans++;
+		print();
+	}while(next_permutation(a,a+10));
+	return 0;
+}
+```
+* 剪邮票
+```C++
+#include <iostream>
+#include <algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+	
+	void dfs(int m[3][4],int i,int j){
+		m[i][j]=0;
+		if(i-1>=0&&m[i-1][j]==1)dfs(m,i-1,j);
+		if(i+1<=2&&m[i+1][j]==1)dfs(m,i+1,j);
+		if(j-1>=0&&m[i][j-1]==1)dfs(m,i,j-1);
+		if(j+1<=3&&m[i][j+1]==1)dfs(m,i,j+1);
+	}
+	
+	bool check(int *a){
+		int g[3][4];
+		for(int i=0;i<3;i++){
+			for(int j=0;j<4;j++){
+				g[i][j]=a[i*4+j];
+			}
+		}
+		int count=0; 
+		for(int i=0;i<3;i++){
+			for(int j=0;j<4;j++){
+				if(g[i][j]==1){
+					//连通性检查 
+					dfs(g,i,j);
+					count++;
+				}		
+			}
+		}
+		return count==1;
+	}
+int main(int argc, char *argv[])
+{ 
+	int a[]={0,0,0,0,0,0,0,1,1,1,1,1};
+	int ans=0;
+	do{
+		if(check(a)){
+		ans++;
+		} 
+	}while(next_permutation(a,a+12));
+	cout<<ans<<endl;
+	return 0;
+}
+
+```
+* 四平方和
+```C++
+#include <iostream>
+#include <algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+	
+	
+int main(int argc, char *argv[])
+{ 
+	int n;
+	cin>>n;
+	map<int,int> cache;
+	for(int c=0;c*c<=n/2;c++){
+		for(int d=c;c*c+d*d<=n;d++){
+			if(cache.find(c*c+d*d)==cache.end()){
+				cache[c*c+d*d]=c;
+			}
+		}
+	}
+	for(int a=0;a*a<=n/4;a++){
+		for(int b=a;a*a+b*b<=n/3;b++){
+			if(cache.find(n-a*a-b*b)!=cache.end()){
+				int c=cache[n-a*a-b*b];
+				int d=(int)sqrt(n-a*a-b*b-c*c);
+				cout<<a<<ends<<b<<ends<<c<<ends<<d<<endl;
+				return 0; 
+			}
+
+		}
+	}
+	return 0;
+}
+
+```
+
+* 交换瓶子
+```C++
+#include <iostream>
+#include <algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+	
+		int n;
+		int a[10001];
+void swap(int i,int j){
+	int t=a[i];
+	a[i]=a[j];
+	a[j]=t;
+}
+int pos(int x){
+for(int i=1;i<=n;i++){
+		if(x==a[i])
+		return i;
+	}
+	return -1;
+}
+
+int main(int argc, char *argv[])
+{ 
+
+	cin>>n;
+	int ans=0;
+	for(int i=1;i<=n;i++){
+		cin>>a[i];
+	}
+	
+	for(int i=1;i<=n;i++){
+		if(a[i]==i)
+		continue;
+		else{
+			swap(pos(i),i);
+			ans++;
+		}
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+
+```
