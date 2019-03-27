@@ -222,4 +222,13 @@ wx.request({
 
  ## js中定时执行函数
  * setTimeout()
- * 
+
+# jQueryBase64加密
+[demo](../demo/jquery.base64.js/index.html)
+
+```js
+//返回加密结果
+$.base64.btoa(value);
+//返回解密结果
+$.base64.atob(value, true);
+```
