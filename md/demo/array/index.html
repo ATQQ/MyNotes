@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="test">test</button>
+    <script src="jquery.min.js"></script>
+    <script>
+        /**
+       * 取出数组1在数组2中不存在的部分
+       * @param {Array} array1 
+       * @param {Array} array2 
+       */
+        function getLackArray(array1, array2) {
+            var newArray = new Array();
+            var count = 0;
+            for (let i = 0; i < array1.length; i++) {
+                for (let j = 0; j < array2.length; j++) {
+                    if (array1[i] == array2[j]) {
+                        break;
+                    } else if (j == array2.length - 1) {
+                        console.log('success');
+                        if ($.inArray(array1[i], newArray) == -1) {
+                            newArray[count++] = array1[i];
+                        }
+                    }
+                }
+            }
+            return newArray;
+        }
+        $('#test').on('click', function (e) {
+            var oldData = [1, 2, 3, 4, 3, 5, 4, 5, 8];
+            var newData = [2, 3, 5, 7, 8, 9];
+            console.log(getLackArray(newData, oldData));
+            console.log(getLackArray(oldData, newData));
+        })
+    </script>
+</body>
+
+</html>
