@@ -1,11 +1,18 @@
-.test {
+.test1 {
   font-size: 90px;
 }
-.test p {
+.test1 p {
   color: #fff;
 }
-.test p:focus {
+.test1 p:active {
   color: aqua;
 }
-
-
+.test2 {
+  font-size: 100px;
+}
+.test2 p {
+  color: #000;
+}
+.test2 p:hover {
+  color: red;
+}
