@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>timerDemo</title>
+</head>
+
+<body>
+
+    <h1>延迟执行(2秒)</h1>
+    <button id="delay1">
+        不带参数
+    </button>
+    <button id="delay2">
+        带参数
+    </button>
+    <button id="clearTimer">清除定时器</button>
+    <h1>重复执行(2s)</h1>
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        var timer=null;
+        // 延迟时间
+        var timeout = 2000;
+        // 测试延迟执行的函数
+        function Fun1() {
+            alert("不带参数");
+        }
+
+        /**
+         *延迟2s执行 
+         */
+        $('#delay1').on('click', function () {
+            // setTimeout(function () {
+            //     Fun1();
+            // }, 2000);
+            // setInterval(() => {
+            //     Fun1();
+            // }, timeout);
+            // window.setTimeout(Fun1,timeout);//第一种写法
+            // window.setTimeout('Fun1()', timeout);//第二种写法
+        })
+
+        function Fun2(str1, str2) {
+            alert("带参数函数" + str1 + str2);
+        }
+        $('#delay2').on('click', function () {
+
+            // setTimeout(function () {
+            //     Fun2('123', '456');
+            // }, 2000);
+            // //或者下面这种写法
+            // setTimeout(() => {
+            //     Fun2('123', '456');
+            // }, 2000);
+            //  setTimeout(Fun2, 2000, '参数1内容', '参数2内容');
+            timer=setTimeout('Fun2("参数1内容","参数2内容")', 2000);
+        })
+
+        $('#clearTimer').on('click',function(){
+            clearTimeout(timer);
+        })
+    </script>
+</body>
+
+</html>
