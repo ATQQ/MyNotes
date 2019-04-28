@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zn-ch">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <audio id="audio"></audio>
+
+    <input type="number">开始
+    <input type="number">结束
+    <button id="load">
+        载入
+    </button>
+    <button id="play">
+        播放
+    </button>
+    <button>
+        
+    </button>
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+
+    var x = document.getElementById("audio");
+        $('#play').on('click', function () {
+       
+
+            // x.load('testAudio.wav');
+            console.log('play');
+            x.play();
+            // startplay(1,2);
+        })
+
+        $('#load').on('click', function () {
+        var x = document.getElementById("audio");
+            window.setInterval(function () {
+                console.log(x.currentTime);
+            },1);
+            console.log('load');
+            x.src="testAudio.wav";
+            // startplay(1,2);
+        })
+
+        // x.addEventListener('timeupdate',function (res)  {
+        //     console.log(x.currentTime);
+        // })
+    </script>
+</body>
+
+</html>
