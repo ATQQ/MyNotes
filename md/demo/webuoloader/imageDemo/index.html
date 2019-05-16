@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebUploader示例</title>
+    <link rel="stylesheet" href="webuploader.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="uploadArea">
+        <div style="display: flex;justify-content: center;">
+            <div id="imagePicker">选择图片</div>
+            <button id="sureUpload">
+                确认上传
+            </button>
+        </div>
+        <ul id="imagesList">
+            <!-- 各种状态图片示例部分 -->
+            <li>
+                <div class="wait state">等待上传</div>
+                <span class="delete">×</span>
+                <img src="https://avatars0.githubusercontent.com/u/42485491?s=60&v=4" alt="图片">
+                <p class="filename">xxxxxxxxxxxxxxxxxx.png</p>
+            </li>
+            <li>
+                <div class="error state">上传出错</div>
+                <span class="delete">×</span>
+                <img src="https://avatars0.githubusercontent.com/u/42485491?s=60&v=4" alt="图片">
+                <p class="filename">xxxxxx.png</p>
+            </li>
+            <li>
+                <div class="success state">上传成功</div>
+                <span class="delete">×</span>
+                <img src="https://avatars0.githubusercontent.com/u/42485491?s=60&v=4" alt="图片">
+                <p class="filename">xxxxxx.png</p>
+            </li>
+            <li>
+                <div class="progress state">上传中</div>
+                <span class="delete">×</span>
+                <img src="https://avatars0.githubusercontent.com/u/42485491?s=60&v=4" alt="图片">
+                <p class="filename">xxxxxx.png</p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 引入jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- 引入Webuploader -->
+    <script src="js/webuploader.js"></script>
+    <!-- 引入上传图片的js片段 -->
+    <script src="js/upload.js"></script>
+</body>
+
+</html>

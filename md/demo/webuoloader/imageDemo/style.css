@@ -1,0 +1,118 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+/* 图片上传区域 */
+#uploadArea {
+  width: 888px;
+}
+
+/* 承载Webuploader按钮的标签 */
+#imagePicker {
+  display: block;
+  margin: 6px;
+}
+
+#imagesList {
+  position: relative;
+  overflow: hidden;
+}
+
+#imagesList li {
+  display: block;
+  position: relative;
+  width: 110px;
+  height: 140px;
+  margin: 10px;
+  float: left;
+}
+
+/* 确认上传按钮 */
+#sureUpload {
+  margin: 6px;
+  height: 38px;
+  padding: 0 20px;
+  display: block;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(76, 175, 80, .9);
+  border: none;
+}
+
+/* 图片删除按钮 */
+#imagesList li span.delete {
+  z-index: 10;
+  width: 18px;
+  height: 18px;
+  background-color: red;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  right: -4px;
+  top: -10px;
+}
+
+/* 预览图片大小 */
+#imagesList li img {
+  width: 100%;
+}
+
+/* 文件名 */
+#imagesList li p.filename {
+  text-align: center;
+
+/* 多的内容换行 */
+  /* word-wrap: break-word;
+            word-break: break-all; */
+  /* 多的部分截断 用...代替*/
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 上传进度条状态样式 */
+.wait,
+.error,
+.success,
+.progress {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  top: -1px;
+  left: 0;
+}
+
+/* 等待上传 */
+.wait {
+  background-color: rgba(158, 158, 158, .5);
+}
+
+/* 上传出错 */
+.error {
+  background-color: rgba(255, 0, 0, .5);
+  color: #fff;
+}
+
+/* 上传成功 */
+.success {
+  background-color: rgba(76, 175, 80, .9);
+  color: #fff;
+}
+
+/* 上传中 */
+.progress {
+  background-color: rgba(255, 235, 59, .7);
+  color: #fff;
+}
