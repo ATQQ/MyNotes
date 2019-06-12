@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wavesurferBugTest</title>
+</head>
+
+<body>
+    <style>
+        #wavePicker {
+            width: 80vw;
+        }
+    </style>
+
+    <div id="wavePicker">
+
+    </div>
+    <div>
+        <input type="file" id="filePicker" accept=".mp3,.wav" />
+        <button id="playPause">Play/Pause</button>
+        <button id="large">+</button>
+        <button id="small">-</button>
+    </div>
+    <p id="regionMsg"></p>
+    <p id="">startIsNegative: <span id="isNegative"></span></p>
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/wavesurfer.js/2.2.1/wavesurfer.js"></script>
+    <script src="https://cdn.staticfile.org/wavesurfer.js/2.2.1/plugin/wavesurfer.regions.min.js"></script>
+    <script>
+
+        var wavesurfer = WaveSurfer.create({
+            container: '#wavePicker',
+            waveColor: 'violet',
+            progressColor: 'purple',
+            responsive: 100,
+            minPxPerSec: 150,
+            plugins: [
+                WaveSurfer.regions.create({
+                    dragSelection: {
+                        slop: 5
+                    }
+                })
+            ]
+        });
+
+        wavesurfer.on('region-click', function (region, e) {
+            $('#regionMsg').html("startTime:" + region.start);
+            $('#isNegative').html(region.start < 0 ? "true" : "false");
+            var region=wavesurfer.regions.list;
+            for (const key in region) {
+                console.log(key);
+            }
+        });
+        wavesurfer.on('ready', function (e) {
+            wavesurfer.zoom(wavesurfer.params.minPxPerSec * 1.3);
+        })
+
+        $('#filePicker').on('change', function (e) {
+            wavesurfer.loadBlob(e.target.files[0]);
+        })
+
+        $('#playPause').on('click', function (e) {
+            wavesurfer.playPause();
+        })
+
+        $('#large').on('click', function (e) {
+            var temp=wavesurfer.params.minPxPerSec *1.3;
+            wavesurfer.zoom(temp);;
+        })
+
+        $('#small').on('click', function (e) {
+            var temp = wavesurfer.params.minPxPerSec / 1.3;
+            wavesurfer.zoom(temp);;
+        })
+
+    </script>
+</body>
+
+</html>
