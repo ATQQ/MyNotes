@@ -28,6 +28,19 @@
         listen       8088;#监听端口
         server_name  localhost;#代理服务地址
 
+        add_header Access-Control-Allow-Origin *;
+
+        location / {
+            root D:\documents\Competition\labManage\equipmentWeb;#根目录!!,把这里路径设置为项目的根路径
+            autoindex on;       #开启nginx目录浏览功能
+            autoindex_exact_size off;   #文件大小从KB开始显示
+            charset utf-8;          #显示中文
+            add_header 'Access-Control-Allow-Origin' '*'; #允许来自所有的访问地址
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, PUT, POST, DELETE, OPTIONS'; #支持请求方式
+            add_header 'Access-Control-Allow-Headers' 'Content-Type,*';
+        }
+
         #开始配置我们的反向代理
         location /api{    #"/api"中的api可以替换为自定义的任何内容
 	    rewrite ^/api/(.*)$ /$1 break;
@@ -42,18 +55,32 @@
 
 }
 ```
-5. 配置完成后,保存一下
-> 最终我们ajax请求的url路径就可以使用:<br>
-> http://localhost:8088/api 完美代替实现跨域访问=> http://localhost:9000 上的资源
-6. 常用nginx命令
+
+5. 常用nginx命令
 >(在解压目录中打开cmd控制台窗口(可直接站资源管理器路径的url输入框中输入cmd即可直接在解压目录打开))<br>
+![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190615095805337-160547788.png)
 ```js
 start nginx.exe //启动nginx
-nginx.exe -s reload //重载配置并重新启动
+nginx.exe -s reload //重载配置
 nginx.exe -s stop //快速停止
 nginx.exe -s quit //完整有序停止
 ```
-> 
+6. 配置完成后,保存一下
+   
+**如果已经打开Nginx,请使用命令重载配置,①停止->②重载配置->③启动**
+* <strong style="color:red;">重要!</strong>在浏览器中输入 http://localhost:8088/ 即可访问配置文件中设置的根目录项目的资源,如果出现404(网页无法显示)说明配置不正确,或者修改的配置文件还没有生效,按上述重载步骤操作一下
+  ![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190615100722167-419814526.png)
+
+  <br/>
+* <strong style="color:red;">注意!</strong>此时如果使用file:///D:/xxxx.html 本地文件路径虽然能访问xxx.html资源文,但仍然不能进行跨域访问资源的访问
+![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190615100605944-582875383.png)
+  只有通过 http://localhost:8088/ 打开对应的xxx.html文件才能进行跨域操作,不会被浏览器拦截
+![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190615100722167-419814526.png)
+ 因为通过这个地址预览到的HTML文件和请求路径都在  http://localhost:8088/ 这个域中,
+* 最终我们js代码里的ajax请求的baseUrl路径就可以使用:<br>
+ http://localhost:8088/api 完美代替实现跨域访问=> http://localhost:9000 上的资源
+
+
 1. 解决跨域问题demo
 * 举个栗子
 ```js
@@ -69,12 +96,14 @@ $.ajax({
     }
 })
 ```
-* 正常情况下(没有跨域问题),将会在浏览器控制台中输出**res**中的内容,而实际情况是↓
-  ![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190613033103780-86400623.png)
+* 想象中情况下(如果没有跨域问题),将会在浏览器控制台中输出**res**中的内容,而实际情况是↓
+  ![](https://img2018.cnblogs.com/blog/1504886/201906/1504886-20190613033103780-86400623.png) 
+  
+  **不用看我这里的的请求url,我只是举个 跨域警告的栗子**
 * 解决方案
-> 按照前面的步骤完成配置后只需改变代码中 baseUrl的值,即可进行舒服的跨域请求操作
+> 按照前面的步骤完成配置后只需改变代码中 baseUrl的值,然后通过  http://localhost:8088/xxxx.html 访问静态资源,即可进行舒服的跨域请求操作
 ```js
 //改变后的baseUrl
 const baseUrl="http://localhost:8088/api/testDemo/"
 ```
-### 教程到此结束,如有任何疑问,请再评论区留言,或者私信/发邮件
+### 教程到此结束,如有任何疑问,或者不明白的地方,请在评论区留言,或者私信/发邮件
