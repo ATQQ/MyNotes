@@ -1,6 +1,46 @@
 # JS笔记
 **记录前端学习过程中所碰到的一切js相关问题**
 
+## 原生js实现文件下载并设置请求头header
+```js
+const token="自行定义";//如果有
+/**
+* 向指定路径发送下载请求
+* @param{String} url 请求路径
+*/
+function downLoadByUrl(url){
+        var xhr = new XMLHttpRequest();
+        //GET请求,请求路径url,async(是否异步)
+        xhr.open('GET', url, true);
+        //设置请求头参数的方式,如果没有可忽略此行代码
+        // xhr.setRequestHeader("token", token);
+        //设置响应类型为 blob
+        xhr.responseType = 'blob';
+        //关键部分
+        xhr.onload = function (e) {
+            //如果请求执行成功
+            if (this.status == 200) {
+                var blob = this.response;
+                var filename = "我是文件名.xxx";//如123.xls
+                var a = document.createElement('a');
+
+                blob.type = "application/octet-stream";
+                //创键临时url对象
+                var url = URL.createObjectURL(blob);
+
+                a.href = url;
+                a.download=filename;
+                a.click();
+                //释放之前创建的URL对象
+                window.URL.revokeObjectURL(url);
+            }
+        };
+        //发送请求
+        xhr.send();
+}
+
+```
+
 ---
 # 方法
 * >[join()](http://www.w3school.com.cn/jsref/jsref_join.asp)
@@ -95,7 +135,7 @@
   |        index         | 必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。 |
   |        hwmany        |        必需。要删除的项目数量。如果设置为 0，则不会删除项目。         |
   | item1,item2,item3... |                      可选。向数组添加的新项目。                       |
-  |  |
+  |                      |
     * **返回值**    
     &emsp;&emsp;	包含被删除项目的新数组，如果有的话。
 
