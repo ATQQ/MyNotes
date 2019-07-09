@@ -140,3 +140,9 @@ function downLoadByUrl(url){
     &emsp;&emsp;	包含被删除项目的新数组，如果有的话。
 
 ---
+
+* >[eval()](http://www.w3school.com.cn/js/jsref_eval.asp)
+  * 定义
+    * eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+  * 用法
+    * >eval(string)
