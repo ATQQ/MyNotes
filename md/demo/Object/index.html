@@ -1,13 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Object对象</h1>
-    <script src="./index.js"></script>
+    <input type="text" name="age" size=3 onChange="validate(this, 18, 99);">
+    <button id="testDebounce">
+        debounce
+    </button>
+    <img id="testImg" src="https://xd-video-pc-img.oss-cn-beijing.aliyuncs.com/xdclass_pro/video/2019_backend/jvm.jpeg"
+        alt="图片">
+    <div id="testDiv" class="test" style="display: block;width:100px;height:100px;background-color:red;">
+        <span>hello!</span>
+        <div>
+            world!
+        </div>
+        测试内容
+        sss
+    </div>
+    <!-- <iframe id="editor" src="about:blank"></iframe>
+    <button onclick="closeDesign()">off</button> -->
+    <script>
+        var testDiv=document.getElementById("testDiv");
+        testDiv.addEventListener("click",function () {
+            console.log(this.getAttribute('id'));
+        })
+        var click=new Event('click');
+        testDiv.dispatchEvent(click);
+        // var editor = document.getElementById('editor');
+        // editor.contentDocument.designMode = 'on';
+        // // console.log(document.querySelector("#testDiv").children)
+        
+        // function closeDesign() {
+        //     editor.contentDocument.designMode = 'off';
+        // }
+
+
+        // console.log(document.images);
+
+        // var child = document.querySelector('#testDiv').childNodes;
+        // var arr=Array.prototype.slice.call(child);
+        // arr=arr.filter((key)=>{
+        //     return key.nodeType != 3;
+        // })
+        // console.log(arr);
+
+        // var $div=document.querySelector("#testDiv");
+        // console.log($div.childNodes);
+        // $div.normalize();
+        // console.log($div.childNodes);
+
+        // let nodes= document.querySelector("#testDiv").childNodes;
+        // let t=[];
+        // nodes.forEach((v)=>{
+        //     if(v.nodeType!=3)t.push(v);
+        // })
+        // console.log(t);
+
+        // function validate(obj, lowval, hival) {
+        //     if ((obj.value < lowval) || (obj.value > hival))
+        //         console.log('Invalid Value!');
+        // }
+        // document.querySelector("#testDebounce").addEventListener("click", debounce(function () {
+        //     console.log("success");
+        // }, 2500))
+
+        // function debounce(fn, delay) {
+        //     var timer = null; // 声明计时器
+        //     return function () {
+        //         var context = this;
+        //         var args = arguments;
+        //         clearTimeout(timer);
+        //         timer = setTimeout(function () {
+        //             fn.apply(context, args);
+        //         }, delay);
+        //     };
+        // }
+        // var $div=document.querySelector('#testDiv');
+        // var timer;
+        // var i=0xFFFFFF;
+        // function func() {
+        //     timer=setTimeout(func,200);
+        //     $div.style.backgroundColor='#'+Math.floor(Math.random()*i).toString(16);
+        //     if(i--===0x100000)clearTimeout(timer);
+        // }
+        // setTimeout(func, 200);
+        // var preloadImage = function (path) {
+        //     return new Promise(function (resolve, reject) {
+        //         var image = new Image();
+        //         image.onload = resolve;
+        //         image.onerror = reject;
+        //         image.src = path;
+        //     });
+        // };
+        // preloadImage("https://xd-video-pc-img.oss-cn-beijing.aliyuncs.com/xdclass_pro/video/2019_backend/jvm.jpeg").
+        //     then(function (e) { document.body.append(e.currentTarget) })
+        //     .then(function () { console.log('加载成功') })
+
+        // console.log(document.getElementById('testDiv').nodeValue)
+        // console.log(document.getElementById('testDiv').firstChild)
+
+        // console.log(document.querySelector("#testDiv").textContent = "<p>sss</p>");
+
+        // console.log(document.querySelector("#testDiv").nextSibling.firstChild.nodeValue);
+
+    </script>
+    <!-- <h1>Object对象</h1>
+    <script src="./index.js"></script> -->
 </body>
+
 </html>

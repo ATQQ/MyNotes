@@ -161,7 +161,7 @@ npm i axios -s
 </script>
 ```
 ### 子组件
-```
+```vue
 <template>
     <div>
         <h2 v-show="isShow">我是子组件</h2>
@@ -186,3 +186,281 @@ npm i axios -s
 </script>
 
 ```
+
+# 2019年7月22日19:49:09
+## vue-cli3.x中使用axios发送请求,配合webpack中的devServer编写本地mock数据接口(get/post/put/delete)
+
+~~手把手式笔记~~
+
+### Axios配置
+
+1. 安装 axios
+```text
+npm install axios
+```
+
+2. main.js同级目录新建axios配置文件setaxios.js
+```js
+import axios from 'axios'
+// import store from './store' //vuex
+// import router from './router' //路由
+
+export default function setAxios() {
+    //拦截request请求
+    axios.interceptors.request.use(
+        config=>{
+            console.log(config.data);
+            return config;
+        }
+    )
+
+    //拦截response回调
+    axios.interceptors.response.use(
+        response=>{
+            if(response.status===200){
+                const data=response.data
+                // if (data.code === 400){
+                //     //登录过期,权限不足
+                //     console.warn("登陆过期");
+                //     //清除token
+                //     store.commit('setToken','')
+                //     window.localStorage.removeItem('token')
+                //     //跳转登录
+                //     router.replace({
+                //         path:"/login"
+                //     })
+                // }
+                return data;
+            }
+            return response;
+        }
+    )
+}
+```
+
+
+3. main.js中引入axios与其配置文件
+```js
+import axios from 'axios'
+import setaxios from './setaxios'
+
+//Vue全局挂载axios
+Vue.prototype.$http=axios
+//设置baseUrl
+axios.defaults.baseURL = '/api'
+```
+### devServer中配置本地mock数据接口(vue.config.js文件中)[参考webpack中文文档](https://webpack.docschina.org/configuration/dev-server/#devserver-before)
+```js
+module.exports = {
+    publicPath: './',
+    outputDir: 'dist',
+    assetsDir: 'static',
+    configureWebpack: {
+        devServer: {
+            contentBase: './build',//项目基本访问目录
+            host: 'localhost',//服务器ip地址
+            port: 8088,//端口
+            open: true, //自动打开页面
+            hot: true,//模块热替换
+            hotOnly: true,//只有热更新不会刷新页面
+            //mock数据接口部分 关键部分
+            before(app) {
+                const bodyParser = require('body-parser')
+                app.use(bodyParser.json())  //通过bodyParser获取req.body）
+                
+                /**
+                *   testGet
+                */
+                app.get('/api/test/get',(req,resp)=>{
+                    console.log(req.query);
+
+                    resp.json({
+                        "code":111,
+                        "msg":"get测试成功"
+                    })
+                })
+
+
+                /**
+                 * testPost
+                 */
+                app.post('/api/test/post', (req, resp) => {
+                    console.log(req.body);
+
+                    resp.json({
+                        "code": 123,
+                        "msg": "post测试成功"
+                    })
+                })
+
+                /**
+                 * testPut
+                 */
+                app.put('/api/test/put', (req, resp) => {
+                    console.log(req.body)
+                    resp.json({
+                        "code": 123,
+                        "msg": "put测试成功"
+                    })
+                })
+
+                /**
+                 * testDelete
+                 */
+                app.delete("/api/test/delete",(req,resp)=>{
+                    console.log(req.body);
+
+                    resp.json({
+                        "code":666,
+                        "msg":"delete测试成功"
+                    })
+                })
+            }
+        }
+    }
+}
+```
+通过上述配置操作即可完成本地mock数据接口编写,接下来是axios发送http请求测试示例
+### restful风格接口axios发送请求示例 [参考axios中文文档](https://www.kancloud.cn/yunye/axios/234845)
+```js
+  methods: {
+    sendGet: function() {
+      this.$http
+        .get("/test/get", {
+          params: {
+            param1: "get字符串",
+            param2: 13131
+          }
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
+    sendPost: function() {
+      this.$http
+        .post("/test/post", {
+          param1: "post字符串",
+          param2: 13131
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
+    sendPut: function() {
+      this.$http
+        .put("/test/put", {
+          param1: "put字符串",
+          param2: 13131
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    sendDelete: function() {
+      this.$http
+        .delete("/test/delete", {
+          data: {
+            param1: "delete字符串",
+            param2: 13131
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+```
+### 完整测试demo(Test.vue)
+```vue
+<template>
+  <div>
+    <h2>HTTP-Request</h2>
+    <button @click="sendGet()">GET</button>
+    <span>&emsp;&emsp;</span>
+    <button @click="sendPost()">POST</button>
+    <span>&emsp;&emsp;</span>
+    <button @click="sendPut()">PUT</button>
+    <span>&emsp;&emsp;</span>
+    <button @click="sendDelete()">DELETE</button>
+    <hr />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "testPage",
+  data() {
+    return {};
+  },
+  methods: {
+    sendGet: function() {
+      this.$http
+        .get("/test/get", {
+          params: {
+            param1: "get字符串",
+            param2: 13131
+          }
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
+    sendPost: function() {
+      this.$http
+        .post("/test/post", {
+          param1: "post字符串",
+          param2: 13131
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
+    sendPut: function() {
+      this.$http
+        .put("/test/put", {
+          param1: "put字符串",
+          param2: 13131
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    sendDelete: function() {
+      this.$http
+        .delete("/test/delete", {
+          data: {
+            param1: "delete字符串",
+            param2: 13131
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+};
+</script>
+```
+## 示例效果图
+![](https://img2018.cnblogs.com/blog/1504886/201907/1504886-20190722204753261-2065295029.png)
+![](https://img2018.cnblogs.com/blog/1504886/201907/1504886-20190722204906039-320342058.png)
+
+
+### 参考文档
+>[webpack中文文档](https://webpack.docschina.org/configuration/dev-server/#devserver-before)
+
+>[Axios中文文档](https://www.kancloud.cn/yunye/axios/234845)
+
+如有不妥,不解之处,请[滴滴我](https://msg.cnblogs.com/send/%E7%B2%A5%E9%87%8C%E6%9C%89%E5%8B%BA%E7%B3%96),或在评论区留言
