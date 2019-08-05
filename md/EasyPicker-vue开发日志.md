@@ -464,3 +464,26 @@ export default {
 >[Axios中文文档](https://www.kancloud.cn/yunye/axios/234845)
 
 如有不妥,不解之处,请[滴滴我](https://msg.cnblogs.com/send/%E7%B2%A5%E9%87%8C%E6%9C%89%E5%8B%BA%E7%B3%96),或在评论区留言
+
+# 2019年7月29日21:50:13
+## 查看浏览器当前所运行的设备环境
+```js
+navigator.userAgent.toLowerCase()
+"mozilla/5.0 (linux; android 5.0; sm-g900p build/lrx21t) applewebkit/537.36 (khtml, like gecko) chrome/70.0.3538.25 mobile safari/537.36"
+```
+
+## 响应式设计相关
+* 单位尽量使用%,rem,em
+  
+# 2019年7月30日10:28:12
+## 使用Vue-cli3.x开发环境中(router采用 history模式)出现Failed to resolve async component default: Error: Loading chunk {/d} failed.或者Uncaught SyntaxError: Unexpected token <错误
+### 错误截图
+![](https://img2018.cnblogs.com/blog/1504886/201907/1504886-20190730103017089-1715894751.png)
+### 解决方案
+修改webpack的配置,
+在vue.config.js文件中修改publicPath为'/'即解决问题
+```js
+module.exports = {
+  publicPath: '/', // <----这里就是会修改webpack的outPath.publicPath
+}
+```
