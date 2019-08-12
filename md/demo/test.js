@@ -157,198 +157,240 @@ var myAtoi2 = function (str) {
 }
 // console.log(myAtoi("42"));
 
-var Node = function (value, next) {
+// var Node = function (value, next=null, sibling=null) {
+//     this.value = value;
+//     this.next = next;
+//     this.sibling=sibling;
+// }
+
+// /**
+//  * 复杂链表的复制
+//  * @param {Node} head 
+//  */
+// function cloneComplexNodes(head) {
+//     if(!head){
+//         return null;
+//     }
+//     const map=new Map();
+
+//     let copyHead=new Node(head.value),//复制的头结点
+//     nowNode=head.next,//被复制的操作节点
+//     copyNode=copyHead;//复制链的当前节点
+//     map.set(head,copyHead);
+
+//     // 第一次遍历
+//     while(nowNode){
+//         copyNode.next=new Node(nowNode.value);
+//         copyNode=copyNode.next;
+//         map.set(nowNode,copyNode);
+//         nowNode = nowNode.next;
+//     }
+
+//     // 第二次遍历
+//     nowNode=head;
+//     while (nowNode) {
+//         map.get(nowNode)&&(map.get(nowNode).sibling=map.get(nowNode.sibling))
+//         nowNode=nowNode.next;
+//     }
+//     return copyHead;
+// }
+
+// /**
+//  * 测试代码
+//  */
+// const node1 = new Node("a"),
+//     node2 = new Node("b"),
+//     node3 = new Node("c"),
+//     node4 = new Node("d");
+
+// node1.next = node2;
+// node2.next = node3;
+// node3.next = node4;
+
+// node1.sibling = node3;
+// node4.sibling = node2;
+
+// let copyNode = cloneComplexNodes(node1);
+// while (copyNode) {
+//     console.log(copyNode);
+//     copyNode = copyNode.next;
+// }
+
+var Node = function (value, next = null) {
     this.value = value;
     this.next = next;
 }
 
-var List = function () {
-    this.head = new Node(null, null);
-
-    this.Tail = function () {
-        let current = this.head;
-        while (current.next) {
-            current = current.next;
-        }
-        return current;
-    }
-    /**
-     * 尾插法
-     */
-    this.insertTail = function (value) {
-        const prev = this.Tail();
-        const next = new Node(value, prev.next);
-        prev.next = next;
-    }
-}
-
 /**
- * 逆序打印
- * @param {Node} node 
+ * 寻找链表的第一个公公节点(栈实现)
+ * @param {Node} list1 
+ * @param {Node} list2 
  */
-function reversePrint(node) {
-    if (node.next) {
-        reversePrint(node.next);
-    }
-    node.value && console.log(node.value);
-}
+function findSameNode1(list1, list2) {
+    let stack1 = [], stack2 = [];
 
-/**
- * 顺序打印
- * @param {Node} node 
- */
-function Print(node) {
+    let node = list1;
     while (node) {
-        node.value && console.log(node.value);
+        stack1.push(node);
         node = node.next;
     }
-}
 
-// let list = new List();
-// list.insertTail("abc");
-// list.insertTail("bcd");
-// list.insertTail("sds");
+    node = list2;
 
-// reversePrint(list.head);
+    while (node) {
+        stack2.push(node);
+        node = node.next;
+    }
 
-
-/**
- * 快速删除指定节点
- * @param {Node} head 
- * @param {Node} delNode 
- */
-function deleteNode(head, delNode) {
-    if (head === delNode || !head || !delNode)
-        return;
-    let nextNode = delNode.next;
-    if (!nextNode) {
-        let tNode = head;
-        while (tNode.next !== delNode) {
-            tNode = tNode.next;
+    while (stack1.length && stack2.length) {
+        let top1 = stack1.pop(),
+            top2 = stack2.pop();
+        if (top1 === top2) {
+            node = top1;
+        } else {
+            break;
         }
-        tNode.next = null;
-        delNode = null;
+    }
+    return node;
+}
+
+/**
+ * 查找链表第一个公共节点(快慢指针)
+ * @param {Node} list1 
+ * @param {Node} list2 
+ */
+function findSameNode2(list1, list2) {
+    let length1 = 0, length2 = length1;
+    let node = list1;
+    while (node) {
+        length1++;
+        node = node.next;
+    }
+    node = list2;
+    while (node) {
+        length2++;
+        node = node.next;
+    }
+    let diff = Math.abs(length1 - length2);
+    let longList = null, shortList = null;
+    if (length1 > length2) {
+        longList = list1;
+        shortList = list2;
     } else {
-        delNode.value = nextNode.value;
-        delNode.next = nextNode.next;
-        nextNode = null;
+        longList = list2;
+        shortList = list1;
     }
+
+    while (diff) {
+        longList = longList.next;
+        diff--;
+    }
+
+    while (longList && shortList) {
+        if (longList === shortList) {
+            return longList;
+        } else {
+            longList = longList.next;
+            shortList = shortList.next;
+        }
+    }
+    return null;
+
 }
 
-let node4 = new Node(4, null);
-node3 = new Node(3, node4),
-    node2 = new Node(2, node3),
-    node1 = new Node(1, node2),
-    head = new Node(null, node1);
+const node3 = new Node(3, new Node(4, null));
+const list1 = new Node(1, new Node(2, new Node(3, node3)));
+const list2 = new Node(5, new Node(5, new Node(6, node3)));
 
-// deleteNode(head, node2);
-// let node = head.next;
-// while (node) {
-//     console.log(node.value);
-//     node = node.next;
+// console.log(findSameNode1(list1,list2));
+// console.log(findSameNode2(list1,list2));
+
+
+/**
+ * 查找二维数组中是否存在某个值
+ * @param {Array} arr 
+ * @param {Number} elem 
+ */
+function findElement(arr, elem) {
+    const rows = arr.length;
+    const columns = arr[0].length;
+    let i = rows - 1, j = 0;
+    while (i >= 0 && j < columns) {
+        count++;
+        if (arr[i][j] === elem) {
+            return true;
+        }
+        if (arr[i][j] < elem) {
+            ++j;
+        } else {
+            --i;
+        }
+    }
+    return false;
+}
+// const arr = [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]];
+// console.log(findElement(arr,1));
+
+/**
+ * 交换数组两个数的值
+ * @param {Array} arr 
+ * @param {Number} i 
+ * @param {Number} j 
+ */
+// const swap = (arr, i, j) => {
+//     [arr[i], arr[j]] = [arr[j], arr[i]]
 // }
 
 /**
- * 查找倒数第k个节点
- * @param {Node} head 
- * @param {Number} k 
+ * 判断是否奇数
+ * @param {Number} num 带判断数字 
  */
-function findReverseByIndex_1(head, k) {
-    let length = 0;
-    let p = head.next;
-    while (p) {
-        length++;
-        p = p.next;
-    }
-    let i = length - k;
-    p = head.next;
-    while (i) {
-        p = p.next;
-        i--;
-    }
-    console.log(p.value);
+const isOdd = num => {
+   return (num & 1) === 1
 }
-// findReverseByIndex_1(head,4);
 
 /**
- * 查找倒数第k个节点
- * @param {Node} head 
- * @param {Number} k 
+ * 将符合条件的额放在数组前面
+ * @param {Array} arr 待操作数组
+ * @param {Function} compareFn 判断条件
+ * @return {Array}
  */
-function findReverseByIndex_2(head, k) {
-    let p = head.next, q = head.next;
-    let i = k;
-    while (i) {
-        q = q.next;
-        i--;
+function change(array, compareFn) {
+    let arr = [...array];
+    let length = arr.length;
+
+    let i = 0, j = length - 1;
+
+    while (i < j) {
+        while (i < length && compareFn(arr[i])) {
+            i++;
+        }
+        while (j >= 0 && !compareFn(arr[j])) {
+            j--;
+        }
+        if (i < j) {
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
     }
-    while (q) {
-        p = p.next;
-        q = q.next;
-    }
-    console.log(p.value);
+    return arr;
 }
-// findReverseByIndex_2(head, 2);
 
+// console.log(change([1, 2, 3, 4, 5], isOdd));
 
-
-let a = 1, b = 2;
-[a, b] = [b, a];
-// console.log(a+"-"+b);
-
-var test = [[1, 3, 2, 45, 23], [12, 13, 45], [22, 99, 33, 213, 1, 24, 78]]
-function findLarge(arr) {
-    let res = [];
-    arr.forEach(v => {
-        res.push(Math.max.apply(null, v));
+/**
+ * 数组组成最小的数
+ * @param {Array} array
+ */
+function findMinNumber(array) {
+    array.sort((x,y)=>{
+        const n1=x+''+y;
+        const n2=y+''+x;
+        return n1-n2;
     })
-    return res;
-}
-// console.log(findLarge(test));
 
-/**
- * 转置链表
- * @param {Node} head 
- */
-function reverseList(head) {
-    if (!head || !head.next) {
-        return head;
-    }
-    var pRev = null;
-    var pCur = head;
-    while (pCur) {
-        var pTemp = pCur;
-        pCur = pCur.next;
-        pTemp.next = pRev;
-        pRev = pTemp;
-    }
-    return pRev;
+    return array.join('');
 }
 
-// head=reverseList(head);
-
-/**
- * 链表转置
- * @param {Node} head 
- */
-function reverseList2(head) {
-    if (!head || !head.next) {
-        return head;
-    }
-
-    var node = head, pre = null;
-
-    while(node){
-        let next=node.next;
-        node.next=pre;
-        pre=node;
-        node=next;
-    }
-    return pre;
-}
-
-// head=reverseList2(head);
-// while(head){
-//     console.log(head.value);
-//     head=head.next;
-// }
+console.log(findMinNumber([3,2,2,33,1]));

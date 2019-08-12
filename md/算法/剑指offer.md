@@ -347,3 +347,273 @@ function reverseList2(head) {
     return pre;
 }
 ```
+
+## 合并有序链表
+```js
+/**
+ * 合并两个有序链表
+ * @param {Node} p1 
+ * @param {Node} p2 
+ */
+function merge(p1,p2) {
+    if(!p1){
+        return p2;
+    }else if(!p2){
+        return p1;
+    }
+    
+    let head=new Node(),
+    node=head;
+
+    while(p1&&p2){
+        if(p1.value<p2.value){
+            node.next=p1;
+            p1=p1.next
+        }else{
+            node.next=p2;
+            p2=p2.next;
+        }
+        node=node.next;
+    }
+
+    if (!p1) {
+        node.next=p2;
+    } else if (!p2) {
+        node.next=p1;
+    }
+    return head.next;
+}
+```
+
+## 复杂链表的复制
+```js
+var Node = function (value, next=null, sibling=null) {
+    this.value = value;
+    this.next = next;
+    this.sibling=sibling;
+}
+
+/**
+ * 复杂链表的复制
+ * @param {Node} head 
+ */
+function cloneComplexNodes(head) {
+    if(!head){
+        return null;
+    }
+    const map=new Map();
+    
+    let copyHead=new Node(head.value),//复制的头结点
+    nowNode=head.next,//被复制的操作节点
+    copyNode=copyHead;//复制链的当前节点
+    map.set(head,copyHead);
+
+    // 第一次遍历
+    while(nowNode){
+        copyNode.next=new Node(nowNode.value);
+        copyNode=copyNode.next;
+        map.set(nowNode,copyNode);
+        nowNode = nowNode.next;
+    }
+
+    // 第二次遍历
+    nowNode=head;
+    while (nowNode) {
+        map.get(nowNode)&&(map.get(nowNode).sibling=map.get(nowNode.sibling))
+        nowNode=nowNode.next;
+    }
+    return copyHead;
+}
+```
+
+## 链表的第一个公共节点
+### 解法1:栈实现
+```js
+var Node = function (value, next = null) {
+    this.value = value;
+    this.next = next;
+}
+
+/**
+ * 寻找链表的第一个公公节点(栈实现)
+ * @param {Node} list1 
+ * @param {Node} list2 
+ */
+function findSameNode(list1, list2) {
+    let stack1 = [], stack2 = [];
+
+    let node = list1;
+    while (node) {
+        stack1.push(node);
+        node = node.next;
+    }
+
+    node = list2;
+
+    while (node) {
+        stack2.push(node);
+        node = node.next;
+    }
+
+    while (stack1.length && stack2.length) {
+        let top1 = stack1.pop(),
+            top2 = stack2.pop();
+        if (top1 === top2) {
+            node = top1;
+        } else {
+            break;
+        }
+    }
+    return node;
+}
+
+const node3 = new Node(3, new Node(4, null));
+const list1 = new Node(1, new Node(2, new Node(3, node3)));
+const list2 = new Node(5, new Node(5, new Node(6, node3)));
+
+console.log(findSameNode(list1,list2));
+```
+### 解法2:快慢指针
+```js
+/**
+ * 查找链表第一个公共节点(快慢指针)
+ * @param {Node} list1 
+ * @param {Node} list2 
+ */
+function findSameNode2(list1,list2) {
+    let length1=0,length2=length1;
+    let node=list1;
+    while(node){
+        length1++;
+        node=node.next;
+    }
+    node=list2;
+    while(node){
+        length2++;
+        node=node.next;
+    }
+    let diff=Math.abs(length1-length2);
+    let longList=null,shortList=null;
+    if(length1>length2){
+        longList=list1;
+        shortList=list2;
+    }else{
+        longList = list2;
+        shortList = list1;
+    }
+
+    while(diff){
+        longList=longList.next;
+        diff--;
+    }
+
+    while(longList&&shortList){
+        if( longList===shortList){
+            return longList;
+        }else{
+            longList=longList.next;
+            shortList=shortList.next;
+        }
+    }
+    return null;
+
+}
+```
+# 数组
+## 二维数组中的查找
+```js
+/**
+ * 查找二维数组中是否存在某个值
+ * @param {Array} arr 
+ * @param {Number} elem 
+ */
+function findElement(arr,elem){
+    const rows=arr.length;
+    const columns=arr[0].length;
+    let i=rows-1,j=0;
+    while(i>=0&&j<columns){
+        count++;
+        if(arr[i][j]===elem){
+            return true;
+        }
+        if(arr[i][j]<elem){
+            ++j;
+        }else{
+            --i;
+        }
+    }
+    return false;
+}
+const arr = [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]];
+console.log(findElement(arr,1));
+```
+
+## 数组顺序调整
+```js
+/**
+ * 交换数组两个数的值
+ * @param {Array} arr 
+ * @param {Number} i 
+ * @param {Number} j 
+ */
+const swap = (arr, i, j) => {
+    [arr[i], arr[j]] = [arr[j], arr[i]]
+}
+
+/**
+ * 判断是否奇数
+ * @param {Number} num 带判断数字 
+ */
+const isOdd = num => {
+   return (num & 1) === 1
+}
+
+/**
+ * 将符合条件的额放在数组前面
+ * @param {Array} arr 待操作数组
+ * @param {Function} compareFn 判断条件
+ * @return {Array}
+ */
+function change(array, compareFn) {
+    let arr = [...array];
+    let length = arr.length;
+
+    let i = 0, j = length - 1;
+
+    while (i < j) {
+        while (i < length && compareFn(arr[i])) {
+            i++;
+        }
+        while (j >= 0 && !compareFn(arr[j])) {
+            j--;
+        }
+        if (i < j) {
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
+    }
+    return arr;
+}
+
+console.log(change([1, 2, 3, 4, 5], isOdd));
+```
+
+## 数组中数字合成最小的数字
+```js
+/**
+ * 数组组成最小的数
+ * @param {Array} array
+ */
+function findMinNumber(array) {
+    array.sort((x,y)=>{
+        const n1=x+''+y;
+        const n2=y+''+x;
+        return n1-n2;
+    })
+
+    return array.join('');
+}
+
+console.log(findMinNumber([3,2,2,33,1]));
+```

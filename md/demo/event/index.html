@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件测试</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            margin-top: 10px;
+            min-width: 100px;
+            min-height: 50px;
+            background-color: yellow;
+        }
+
+        .fileContainer {
+            margin-top: 10px;
+            min-width: 300px;
+            min-height: 100px;
+            background-color: #f18235;
+            color: #fff;
+        }
+    </style>
+    <div>
+        <p>click事件传播测试</p>
+    </div>
+    <label id="dragTest" draggable="true" for="test">测试<input name="test" type="text"></label>
+
+    <div class="container">
+
+    </div>
+    <div class="container">
+
+    </div>
+    <div class="container">
+
+    </div>
+    <a href="https://www.baidu.com" target="_blank" onclick="event.preventDefault()">百度,禁用默认效果</a>
+
+
+    <div id="fileContainer" class='fileContainer'>
+        文件拖放进来
+    </div>
+    <script>
+        var fileContainer = document.getElementById('fileContainer');
+        fileContainer.addEventListener('dragenter', function (e) {
+            fileContainer.textContent = '';
+            e.stopPropagation();
+            e.preventDefault();
+
+            var dt = e.dataTransfer;
+
+            // 添加链接
+            dt.setData('text/uri-list', 'http://www.example.com');
+            dt.setData('text/plain', 'http://www.example.com');
+
+            // 添加 HTML 代码
+            dt.setData('text/html', 'Hello there, <strong>stranger</strong>');
+            dt.setData('text/plain', 'Hello there, <strong>stranger</strong>');
+
+        })
+
+        fileContainer.addEventListener('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        })
+
+        fileContainer.addEventListener('drop', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log(e.dataTransfer.getData('text/plain'))
+            console.log(e.dataTransfer.types);
+            var files = e.dataTransfer.files;
+            for (let i = 0; i < files.length; i++) {
+                // console.info(files[i]);
+                fileContainer.textContent += (files[i].name + '---' + files[i].size + '字节\n');
+            }
+            var items = e.dataTransfer.items;
+            for (let i = 0; i < items.length; i++) {
+                console.log(items[i]);
+            }
+        })
+
+
+
+        function showChar(e) {
+            console.log('ALT: ' + e.altKey);
+            console.log('CTRL: ' + e.ctrlKey);
+            console.log('Meta: ' + e.metaKey);
+            console.log('Shift: ' + e.shiftKey);
+            console.log(e.code);
+            console.log(e.key);
+        }
+        // document.body.addEventListener('keydown', showChar, false);
+
+        var input = document.querySelector('input');
+
+        // input.addEventListener('keydown',function (e) {
+        //     console.log(e.key);
+        //     if(e.key==='a'){
+        //     e.preventDefault();
+        //     }
+        // })
+
+        // input.addEventListener('select',function (e) {
+        //     console.log(e.target.selectionStart);
+        // })
+
+        // input.addEventListener('input',function (e) {
+        //     console.log(e.dataTransfer);
+        //     console.log(e.data);
+        // })
+
+        // label.addEventListener('dragstart', function (e) {
+        //     this.style.color = 'red';
+        // })
+
+        // label.addEventListener('dragend', function (e) {
+        //     this.style.color = 'black';
+        // })
+
+        var dragElement = null;
+        document.addEventListener('dragstart', function (e) {
+            var img=document.createElement('img');
+            img.src="https://user-gold-cdn.xitu.io/2019/6/3/16b1977c2f3a0ed0?w=1950&h=2730&f=png&s=545408";
+            e.dataTransfer.setDragImage(img,0,0);
+            dragElement = e.target;
+            e.target.style.opacity = '0.3';
+        })
+
+        document.addEventListener('dragend', function (e) {
+            e.target.style.opacity = '';
+        })
+
+        document.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        })
+
+        document.addEventListener('dragenter', function (e) {
+            e.dataTransfer.dropEffect = 'move';
+            if (e.target.className === 'container') {
+                e.target.style.backgroundColor = 'purple';
+            }
+        })
+
+        document.addEventListener('dragleave', function (event) {
+            // 目标节点的背景色恢复原样
+            if (event.target.className === 'container') {
+                event.target.style.backgroundColor = 'yellow';
+            }
+        }, false);
+
+        document.addEventListener('drop', function (e) {
+            e.preventDefault();
+            if (e.target.className === 'container') {
+                e.target.style.backgroundColor = 'yellow';
+                dragElement.parentNode.removeChild(dragElement);
+                e.target.appendChild(dragElement);
+            }
+        })
+        // 分割线
+        var phases = {
+            1: 'capture',
+            2: 'target',
+            3: 'bubble'
+        };
+        /**
+         * @param {Event} 事件
+         **/
+        function callback(e) {
+            var tagNmae = e.currentTarget.tagName;
+            var phase = e.eventPhase;
+            // console.log(tagNmae + ' --- ' + phases[phase]);
+            // console.log(e.button);
+            console.log('clientX,Y:' + e.clientX + '-' + e.clientY);
+            console.log('screenX,Y:' + e.screenX + '-' + e.screenY);
+            console.log('offsetX,Y:' + e.offsetX + '-' + e.offsetY);
+            console.log('pageX,Y:' + e.pageX + '-' + e.pageY);
+        }
+        var p = document.querySelector('p');
+        var div = document.querySelector('div');
+
+        p.addEventListener('click', callback, true);
+        // 阻止向下传播
+        // p.addEventListener('click', function (e) {
+        //     e.stopPropagation();
+        // }, true);
+
+        // div.addEventListener('click', callback, true);
+        // p.addEventListener('click', callback, false);
+        // 阻止向上传播
+        // p.addEventListener('click', function (e) {
+        //     e.stopPropagation
+        // }, false);
+
+        // div.addEventListener('click', callback, false);
+    </script>
+</body>
+
+</html>
