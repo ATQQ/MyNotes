@@ -57,3 +57,31 @@
 ![](https://img2018.cnblogs.com/blog/1504886/201907/1504886-20190717114906931-1394318326.png)
 ![](https://img2018.cnblogs.com/blog/1504886/201907/1504886-20190717114746903-559812489.png)
 
+
+# 2019年8月15日20:59:40
+## Avoid replacing instance root $data. Use nested data properties instead.
+## 翻译
+避免替换实例根$data。请改用嵌套数据属性
+
+## 错误的代码
+```js
+const demoData={
+	name:"小明",
+	age:19
+}
+
+this.$data=demoData; //此种直接赋值即会导致警告产生(对象的拷贝默认是深拷贝即引用)
+```
+## 产生原因
+最新的Vue已经不允许这样直接对跟实例$data进行赋值
+## 解决方案
+使用 **Object.assign()** 进行浅拷贝
+```js
+const demoData={
+	name:"小明",
+	age:19
+}
+
+Object.assign(this.$data,demoData); 
+```
+
