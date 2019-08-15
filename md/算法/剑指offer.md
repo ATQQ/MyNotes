@@ -617,3 +617,84 @@ function findMinNumber(array) {
 
 console.log(findMinNumber([3,2,2,33,1]));
 ```
+
+
+# 经典排序算法
+## 归并算法
+```js
+/**
+ * 归并排序
+ * @param {Array} arrays 
+ * @param {Number} L 数组第一个元素
+ * @param {Number} R 数组最后一个元素
+ */
+function mergeSort(arrays, l, r) {
+    if (l === r) {
+        return;
+    } else {
+        // 取中间的数,进行拆分
+        const m = Math.floor((l + r) / 2);
+
+        //左边不断进行拆分
+        mergeSort(arrays, l, m);
+        //右边不断进行拆分
+        mergeSort(arrays, m + 1, r);
+        //合并
+        merge(arrays, l, m + 1, r);
+
+    }
+}
+
+
+/**
+ * 合并数组
+ * @param {Array} arrays 
+ * @param {Number} l 数组第一个元素
+ * @param {Number} m 数组分割元素
+ * @param {Number} r 数组最后一个元素
+ */
+function merge(arrays, l, m, r) {
+    let leftArr = new Array(m - l),//左边数组大小
+        rightArr = new Array(r - m + 1);//右边数组大小
+
+    //往数组中填充数据
+    for (let i = l; i < m; i++) {
+        leftArr[i - l] = arrays[i];
+    }
+    for (let i = m; i <= r; i++) {
+        rightArr[i - m] = arrays[i];
+    }
+
+    let i = 0, j = 0, k = l;
+
+    //比较这两个数组的值,哪个小就往数组上放
+    while (i < leftArr.length && j < rightArr.length) {
+        if (leftArr[i] < rightArr[j]) {
+            arrays[k] = leftArr[i];
+            k++;
+            i++;
+        } else {
+            arrays[k] = rightArr[j];
+            k++;
+            j++;
+        }
+    }
+
+    //如果左边的数组没读完,那么把剩余的都直接填充到后面
+    while (i < leftArr.length) {
+        arrays[k] = leftArr[i];
+        k++;
+        i++;
+    }
+
+    // //如果右边的数组没读完,那么把剩余的直接填充都后面
+    while (j < rightArr.length) {
+        arrays[k] = rightArr[j];
+        k++;
+        j++;
+    }
+}
+let originArr = [9, 2, 5, 1, 3, 2, 9, 5, 2, 1, 8];
+mergeSort(originArr, 0, originArr.length - 1);
+console.log(originArr);
+```

@@ -346,7 +346,7 @@ function findElement(arr, elem) {
  * @param {Number} num 带判断数字 
  */
 const isOdd = num => {
-   return (num & 1) === 1
+    return (num & 1) === 1
 }
 
 /**
@@ -384,13 +384,102 @@ function change(array, compareFn) {
  * @param {Array} array
  */
 function findMinNumber(array) {
-    array.sort((x,y)=>{
-        const n1=x+''+y;
-        const n2=y+''+x;
-        return n1-n2;
+    array.sort((x, y) => {
+        const n1 = x + '' + y;
+        const n2 = y + '' + x;
+        return n1 - n2;
     })
 
     return array.join('');
 }
 
-console.log(findMinNumber([3,2,2,33,1]));
+// console.log(findMinNumber([3,2,2,33,1]));
+
+// 归并排序
+
+/**
+ * 归并排序
+ * @param {Array} arrays 
+ * @param {Number} L 数组第一个元素
+ * @param {Number} R 数组最后一个元素
+ */
+function mergeSort(arrays, l, r) {
+    if (l === r) {
+        return;
+    } else {
+        // 取中间的数,进行拆分
+        const m = Math.floor((l + r) / 2);
+        //左边不断进行拆分
+        mergeSort(arrays, l, m);
+        //右边不断进行拆分
+        mergeSort(arrays, m + 1, r);
+        //合并
+        merge(arrays, l, m + 1, r);
+    }
+}
+
+
+/**
+ * 合并数组
+ * @param {Array} arrays 
+ * @param {Number} l 数组第一个元素
+ * @param {Number} m 数组分割元素
+ * @param {Number} r 数组最后一个元素
+ */
+function merge(arrays, l, m, r) {
+    let leftArr = arrays.slice(l, m),//左边数组
+        rightArr = arrays.slice(m, r + 1);//右边数组
+
+    let i = 0, j = 0, k = l;
+
+    //比较这两个数组的值,哪个小就往数组上放
+    while (i < leftArr.length && j < rightArr.length) {
+        arrays[k++] = leftArr[i] < rightArr[j] ? leftArr[i++] : rightArr[j++];
+    }
+
+    //如果左边的数组没读完,那么把剩余的都直接填充到后面
+    while (i < leftArr.length) {
+        arrays[k++] = leftArr[i++];
+    }
+
+    //如果右边的数组没读完,那么把剩余的直接填充都后面
+    while (j < rightArr.length) {
+        arrays[k++] = rightArr[j++];
+    }
+}
+let originArr = [9, 2, 5, 1, 3, 2, 9, 5, 2, 1, 8];
+// mergeSort(originArr, 0, originArr.length - 1);
+// console.log(originArr);
+
+/**
+ * 普通纯数值的数组,查找指定内容的下标
+ **/
+// let testArr = [1, 3, 5, 2, 3];
+// //查找数值为5的第一个数的下标
+// let index = testArr.findIndex(v => {
+//     return v === 5;
+// })
+// console.log(index);//2
+
+
+
+/**
+ * 复杂数组的查找
+ */
+//测试数据
+// let testArr = [
+//     { name: '小明1', id: 7, age: 18 },
+//     { name: '小明1', id: 8, age: 18 },
+//     { name: '小明2', id: 9, age: 19 },
+//     { name: '小明3', id: 10, age: 20 }
+// ]
+// //查找id为9的第一组数据
+// let res = testArr.find(v => {
+//     return v.id === 9;
+// })
+// //查找id为9的第一组数据的下标
+// let resIndex = testArr.findIndex(v => {
+//     return v.id === 9;
+// })
+// console.log('res :', res);//res : {name: "小明2", id: 9, age: 19}
+// console.log('resIndex :', resIndex);//resIndex : 2
