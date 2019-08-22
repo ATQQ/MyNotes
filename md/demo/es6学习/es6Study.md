@@ -5,3 +5,5 @@
 ## [4.解构赋值](./docs/解构赋值.md)
 ## [5.字符串的拓展](./docs/newStringMethod.md)
 ## [6.数组的扩展](./docs/Array扩展.md)
+## [7.对象的扩展](./docs/ES6与ES7对对象的扩展.md)
+## [8.Map与WeekMap](./docs/map与weekmap.md)

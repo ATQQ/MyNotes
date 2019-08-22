@@ -48,3 +48,12 @@ dist
     "dev":"babel src -w -d dist"
 }
 ```
+### 对象的扩展运算符支持插件
+* 安装
+```
+cnpm i babel-plugin-transform-object-rest-spread
+```
+* 配置
+```js
+    "plugins": ["transform-object-rest-spread"]
+```
