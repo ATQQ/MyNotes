@@ -698,3 +698,132 @@ let originArr = [9, 2, 5, 1, 3, 2, 9, 5, 2, 1, 8];
 mergeSort(originArr, 0, originArr.length - 1);
 console.log(originArr);
 ```
+
+
+# 栈和队列
+## 队列的实现
+```js
+class Queue {
+    /**
+    * 队列
+    */
+    constructor() {
+        this.queue = [];
+    }
+    push(e) {
+        this.queue.push(e)
+    }
+
+    pop() {
+        return this.queue.shift()
+    }
+}
+
+let queue = new Queue();
+queue.push({ name: 'xiaoming' });
+console.log(queue.pop());
+console.log(queue.pop());
+```
+
+## Min函数栈
+```js
+class MinStack {
+    /**
+     * Min函数栈
+     */
+    constructor() {
+        this.stack = [];
+        this.minStack = [];
+    }
+
+    push(value) {
+        let minLength = this.minStack.length;
+        this.stack.push(value);
+        // 如果为空直接放入新元素
+        if (minLength === 0) {
+            this.minStack.push(value);
+        } else {
+            // 如果小于当前最小元素,直接放入
+            if (value < this.minStack[minLength - 1]) {
+                this.minStack.push(value);
+            } else {
+            //否则放入当前最小的元素
+                this.minStack.push(this.minStack[minLength - 1]);
+            }
+        }
+    }
+
+    pop() {
+        if (this.minStack.length === 0) return null;
+        this.stack.pop();
+        return this.minStack.pop();
+    }
+
+    min() {
+        let minLength = this.minStack.length;
+        if (minLength === 0) return null;
+        return this.minStack[minLength - 1];
+    }
+}
+```
+
+## 判断栈的压入弹出序列是否匹配
+```js
+/**
+ * 获取栈顶元素
+ * @param {Array} stack 
+ */
+function getStackTop(stack) {
+    return !Array.isArray(stack) || !stack.length ? null : stack[stack.length - 1];
+}
+
+let testStack = [];
+// console.log(getStackTop(testStack));
+
+/**
+ * 判断弹出序列是否与压栈序列对应
+ * @param {Array} pushStack 压入序列
+ * @param {Array} popStack 弹出序列
+ */
+function checkIsTrue(pushStack, popStack) {
+    if (pushStack.length !== popStack.length || !pushStack.length || !popStack.length) {
+        return null;
+    }
+
+    let i = 0,//压入序列指针
+        j = 0;//弹出序列指针
+
+    let stack = [];//辅助栈
+    while (j < popStack.length) {
+        while (i < pushStack.length && popStack[j] !== getStackTop(stack)) {
+            stack.push(pushStack[i]);
+            i++;
+        }
+
+        if (popStack[j] !== getStackTop(stack)) {
+            return false;
+        }
+
+        stack.pop();
+        j++;
+    }
+    return true;
+}
+
+console.log(checkIsTrue([1,2,3,4,5],[4,5,3,2,1]));
+```
+
+## 青蛙跳台阶
+```js
+let map = new Map([[1, 1], [2, 2]]);
+const fib2 = (n) => {
+    if (map.has(n)) {
+        return map.get(n);
+    }
+
+    map.set(n, fib2(n   - 1)+fib2(n - 2))
+    return map.get(n);
+}
+
+console.log(fib2(100));
+```
