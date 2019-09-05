@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>实践感悟收货.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<blockquote>
+<p>&quot;感恩高中母校,分享石大青春&quot;实践活动是由西南石油大学招生就业处举办的大型志愿者活动。该活动以&quot;感恩高中母校,分享石大青春&quot;为主旨,鼓励在校学生组队或个人返回高中母校,通过各种形式,分享大学的生活,高中的学习心得,学习方法,学习理念,为学弟学妹们加油鼓劲,传播&quot;为祖国加油,为民主争气&quot;的思想文化,用实际行动感恩高中母校,用热情谱写当代大学生的昂扬风貌。此次实践活动的团队成员共8人,来自学校的不同院系毕业于同一高中母校。</p>
+</blockquote>
+<blockquote>
+<p>此次事件活动旨在通过回访母校,与学弟学妹们分享高三的复习经验与大学的生活经历,以帮助它们更好的走过高三最后一段时间,进入自己心仪的大学。</p>
+</blockquote>
+<blockquote>
+<p>2018年1月25日下午四点，青春分享宣讲团队——“青霖赴晨”的全体成员回到了母校——四川省岳池中学。集合完毕并确保准备工作万无一失后，我们来到了提前联系好的宣讲班级。首先，我们向所有学弟学妹们做了自我介绍，并说明了我们的来意以及这次活动的目的，得到了大家的理解与认可；然后我们给大家播放了西南石油大学的宣传纪录片，向大家介绍了西南石油大学的建校历史、发展概况、招生政策等方面，让学弟学妹对我们学校有了一个大致粗略的了解；另外，我们还跟学弟学妹交流了高中学习生活方面的意见，并引导他们正确地看待高中生涯，鼓励他们在努力学习的同时也要兼顾其他个人能力的培养与发展，为自己的将来做好充足的规划，争取为自己争气，为母校争光。后来，我们举行了一个问答环节，亲切与同学们互动，并耐心地解答了他们现阶段所存在的一些学习及其生活上的问题，但由于时间有限，并不能为同学们一一解决所有疑惑，于是我们便留下了自己的联系方式，希望并欢迎他们在线下继续与我们交流学习；在活动的最后，我们与同学进行了合影留恋，感谢大家对我们这次青春宣讲活动的理解与支持。</p>
+</blockquote>
+<blockquote>
+<p>在这次活动中，我们重回到了母校，回到了这个梦想开始的地方，感慨万千。首先，这次活动的整体筹备都是我们团队里每位成员相互努力、相互协调所完成的，所以，感谢所有成员的不懈努力，这次活动的成果应该属于团队里的每一个人。另外，虽然我们与学弟学妹们只短暂相处了一两个小时，但是我们在他们身上看到了青春的活力与希望，看到了从前的我们，我们由衷地希望我们能尽自己的绵薄之力，给到学弟学妹们真真切切的帮助，也感谢岳池中学和西南石油大学的教育之恩，通过这次活动，我们也深刻地明白了感恩，并且我们今后会将这份感恩永远地保留在心中，吃水永远不忘挖井人。</p>
+</blockquote>
+<blockquote>
+<p>社会实践活动是大学生从象牙塔迈向社会的桥梁，它有助于大学生认识社会，了解社会，适应社会。此次实践活动让我联系社会生活实际，通过亲身体验进行学习，亲身参与考察、访谈、讨论等活动，积累实践经验，发展自我的个性倾向和能力，让我有机会把学校环境中的学习与社会、家庭环境中的学习有机结合起来，培养自己的实践能力。</p>
+</blockquote>
+<blockquote>
+<p>让我亲身参与实践活动中、主动实践，在实践中综合运用所学知识解决各种实际问题，提高了解决实际问题的能力，实践的内容是丰富的。通过亲生参与实践,让我明白了实践并不仅仅意味着让学生作社会调查、参观、访问，更重要的是要为学生营造实践情境，通过引导，让学生自己能够发现问题、提出问题、解决问题。特别是学生能够面对生活世界的各种现实问题，综合运用所学知识，主动地去探索、发现、体验、重演、交往，亲历亲为，获得解决现实问题的真实经验，从中培养实践能力。</p>
+</blockquote>
+<blockquote>
+<p>实践活动培养了我的创新精神。在活动过程中，实践者始终处于主体地位，自己发现了自己的问题，自己设计方案，自己收集资料，自己解决问题。在这一过程中，我们的想像力和创造力可以充分发挥出来。我认为,今天的学生要以适应明天的社会生活为己任，尽可能的为自己创造条件，积极探索、主动实践，有所发现、有所思考、有所创新，具备初步的怀疑精神和批判精神，具有独立思考问题的能力和解决问题的能力，为将来成为创新人才奠定基础。</p>
+</blockquote>
+<blockquote>
+<p>我认为,在这个充满激烈竞争的社会,需要学习的东西不光停留在书本,生活在现实中就应将自己摆在适当的位置,正确公平的估计自己,把今天当成一个新的起点,从头开始,过去的就让他过去.</p>
+</blockquote>
+<blockquote>
+<p>我喜欢学习挑战一些新事物,新技术,因为只有选择有价值有意义的事,勇敢的去尝试,才能不断发现自己的不足,只有不断学习,才能努力赶上.优胜略汰是社会进步的法则,超越压力,战胜自我是我人生的奋斗目标,工作面前,我积极肯干,认真负责,喜欢在乐观中进取,用微笑面对人生.我最喜欢的一句格言：“从成功里得到自信和快乐,从自信里得到快乐和成功,从快乐里得到成功和自信”,我想信我的指尖拥有改变世界的力量。
+　　
+虽然自己资质平平,成长的历程艰难险阻,经历了重重磨难,但我相信,带着微笑,不懈的努力,定能战胜一切!</p>
+</blockquote>
+<blockquote>
+<p>今年寒假参加的青春分享社会实践活动，虽然只有半个月的时间,但让我觉得很充实,我从中锻炼了自己，并且学到了很多课堂上学不到的东西。也通过此次实践，使我有了些关于学校建设的心得体会。</p>
+</blockquote>
+<blockquote>
+<p>面对恶劣的周围环境。我要看看我能否在恶劣的环境中有能力依靠自己的双手和大脑维持自己的生存，同时，也想通过亲身体验社会实践让自己更进一步了解社会，在实践中增长见识，锻炼自己的才干，培养自己的韧性，更为重要的是检验一下自己所学的东西能否被社会所用，自己的能力能否被社会所承认。想通过社会实践，找出自己的不足和差距所在。</p>
+</blockquote>
+<blockquote>
+<p>“艰辛知人生，实践长才干”。通过开展丰富多彩的社会实践活动，使我逐步了解了社会，开阔了视野，增长了才干，并在社会实践活动中认清了自己的位置，发现了自己的不足，对自身价值能够进行客观评价。这在无形中使我对自己有一个正确的定位，增强了我努力学习的信心和毅力。我是一名大一学生，即将走上社会，更应该提早走进社会、认识社会、适应社会。</p>
+</blockquote>
+<blockquote>
+<p>“纸上得来终觉浅，绝知此事要躬行”。社会实践使同学们找到了理论与实践的最佳结合点。尤其是我们学生，只重视理论学习，忽视实践环节，往往在实际工作岗位上发挥的不很理想。通过实践所学的专业理论知识得到巩固和提高。就是紧密结合自身专业特色，在实践中检验自己的知识和水平。通过实践，原来理论上模糊和印象不深的得到了巩固，原先理论上欠缺的在实践环节中得到补偿，加深了对基本原理的理解和消化每一天，捧着厚厚的问卷，怀着一份份坚定的信念，我们在烈日下奔跑着。感谢这次实践活动，让我们在这过程中成长了不少，懂得了不少。</p>
+</blockquote>
+
+</body>
+</html>
