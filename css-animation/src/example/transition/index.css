@@ -1,0 +1,64 @@
+h1{
+  color:red;
+  /* 简写 */
+  /* transition:[property] [duration] [delay] [timeing-function] */
+  /* transition: all 0.5s .2s linear; */
+  /* 全写 */
+  /* 规定过渡css属性名称 */
+  transition-property: all;
+  /* 过渡持续时间 3s===3*1000ms */
+  transition-duration: 1s;
+  /* 过渡效果延迟开始时间 */
+  transition-delay: 0.1s;
+  /* 时间函数 */
+  /* transition-timing-function: cubic-bezier(0.59, -0.26, 0.33, 1.42); */
+  /* transition-timing-function: ease-in; */
+  transition-timing-function: ease-out;
+}
+
+/*  某些属性不能应用过渡,font-family*/
+
+h1:hover{
+  color: black;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
+  
+  #btn1{
+    background:white;
+    transition: background 0.5s linear;
+  }
+  
+  #btn1:hover {
+    background: green;
+  }
+  
+  #btn1:active{
+    background:black;
+  }
+  
+  #btn2{
+    /* transition: all 0.5s cubic-bezier(0.59, -0.26, 0.33, 1.42); */
+    transition-property: all;
+    transition-duration: 0.6s;
+    transition-timing-function: linear;
+  }
+
+  #btn2:hover{
+    background: greenyellow;
+  }
+
+  #block{
+    width: 100px;
+    height: 100px;
+    background: burlywood;
+    transition: all 1s steps(10, start);;
+  }
+
+  #block:hover{
+    background: cornflowerblue;
+  }

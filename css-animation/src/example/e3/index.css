@@ -1,0 +1,49 @@
+body {
+    background-color: #7B00FF;
+}
+
+.options {
+    /* 选择框位置 */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* 选择框宽度 */
+    width: 30em;
+    /* 圆角 */
+    border-radius: 1em;
+    /* 阴影 */
+    box-shadow: 0 0 0.2em #ddd;
+    overflow: hidden;
+}
+
+.options .option {
+    background-color: #000;
+    color: #fff;
+    padding: 1.5em 0 1.5em 1em;
+    border-bottom: 1px solid #dddddd;
+    /* 过渡 */
+    transition: all 0.3s ease-in-out;
+}
+
+.options .option:last-child {
+    border-bottom: none;
+}
+
+
+/* 悬停时触发 */
+
+.options .option:hover {
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+
+/* 点击时触发 */
+
+.options .option:active {
+    transition: all 0.05 ease-in-out;
+    color: #fff;
+    background-color: #39A5F7;
+}

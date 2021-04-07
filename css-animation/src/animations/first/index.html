@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>first animation</title>
+</head>
+
+<body>
+    <style>
+        #square {
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform: translateX(-50%);
+            width: 10em;
+            height: 10em;
+            background-color: burlywood;
+            /* animation: change-background 4s linear infinite alternate; */
+            /* animation: change-background 1s linear infinite; */
+            /* animation: delay iteration-count direction fill-mode; */
+            /* 动画名称 */
+            animation-name: change-background;
+            /* 过渡时间 */
+            animation-duration: 1s;
+            /* 时间函数 作用于关键帧之间*/
+            /* animation-timing-function: linear; */
+            /* 执行方向 交替 */
+            animation-direction: alternate;
+            /* 执行次数 */
+            animation-iteration-count: infinite;
+            /* 设置为负值将会从第ns开始 */
+            /* animation-delay: -2s; */
+            /* 动画开始前或结束的状态 forward最后一帧*/
+            animation-fill-mode: forwards;
+            /* 动画执行状态 */
+            /* animation-play-state:paused; */
+        }
+        
+        @keyframes c1 {
+            /* 等价于0% --- 100% */
+            form {
+                background-color: springgreen;
+            }
+            to {
+                background-color: slateblue;
+            }
+        }
+        
+        @keyframes change-background {
+            0% {
+                background: blue;
+                border-radius: 0%;
+                animation-timing-function: ease-out;
+            }
+            50% {
+                background: orange;
+                border-radius: 30%;
+                animation-timing-function: linear;
+            }
+            100% {
+                background: green;
+                border-top-left-radius: 50%;
+                border-top-right-radius: 50%;
+                animation-timing-function: ease-in;
+            }
+        }
+        
+        @keyframes e1 {
+            /* 表示这段时间内不发生变化类似于暂停效果 */
+            0%,
+            10% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        #square button {
+            animation: c1 1s ease-in-out infinite alternate;
+            outline: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: background-color 0.5s ease-in-out;
+            width: 3em;
+            height: 3em;
+            border-radius: 50%;
+            border: none;
+            background-color: orange;
+        }
+        
+        #square button:hover {
+            background-color: skyblue
+        }
+        
+        #square button:active {
+            background-color: red;
+        }
+    </style>
+    <div id="square">
+        <button id="start">
+
+        </button>
+    </div>
+    <script>
+        let btn = document.getElementById('start');
+        let square = document.getElementById('square');
+        btn.onclick = () => {
+            let state = square.style.animationPlayState;
+            square.style.animationPlayState = state === 'paused' ? 'running' : 'paused';
+        }
+    </script>
+    <script src="./../../../prefixfree.min.js"></script>
+</body>
+
+</html>

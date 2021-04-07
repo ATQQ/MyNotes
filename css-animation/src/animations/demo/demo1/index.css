@@ -1,0 +1,56 @@
+.screen {
+    position: relative;
+    background: #e25865 url(https://cssanimation.rocks/screen/images/screen_bg.png) no-repeat;
+    background-position-x: center;
+    background-position-y: top;
+    background-size: 100% auto;
+    border: 2em solid #fff;
+    border-radius: 1em;
+    width: 40em;
+    height: 30em;
+    animation: scroll 6s infinite cubic-bezier(.52, -0.39, .3, 1.43) alternate;
+}
+
+.screen:hover {
+    animation-play-state: paused;
+}
+
+.screen:hover .message {
+    opacity: 1;
+}
+
+.message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 10em;
+    height: 7em;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 7em;
+    font-size: 2em;
+    transition: opacity 0.5s ease-in;
+}
+
+@keyframes scroll {
+    0%,
+    10% {
+        background-position: 0 0;
+    }
+    20%,
+    30% {
+        background-position: 0 -22em;
+    }
+    50%,
+    60% {
+        background-position: 0 -44em;
+    }
+    90%,
+    100% {
+        background-position: 0 0;
+    }
+}

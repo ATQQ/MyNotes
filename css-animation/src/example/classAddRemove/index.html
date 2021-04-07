@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./index.css">
+    <title>transition</title>
+</head>
+
+<body>
+    <button id="show">Show it</button>
+    <div id="wait-show" class="hide">
+        <h1>Title</h1>
+        <p>Pressing the button shows this content.</p>
+    </div>
+</body>
+<script>
+    let showBtn = document.getElementById('show');
+    let body = document.body;
+    let waitShow = document.getElementById('wait-show');
+    showBtn.addEventListener('click', function (e) {
+        // 更改body颜色
+        body.className = body.className === 'on' ? '' : 'on';
+
+        waitShow.className = waitShow.className === 'hide' ? 'show' : 'hide';
+    })
+    document.getElementsByTagName('body')
+</script>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css">
+</head>
+
+<body>
+    <p class="wow bounceInUp">.sssssssss..</p>
+
+
+</body>
+<script>
+    for (let i = 0; i < 1000; i++) {
+        let p = document.createElement('p');
+        p.textContent = "我是一窜的点点滴滴多" + Math.floor(Math.random() * 1000)
+        p.className = 'wow bounceInUp';
+        document.body.append(p);
+    }
+</script>
+<script src="./wow.min.js"></script>
+<script>
+    new WOW().init();
+</script>
+
+</html>

@@ -1,0 +1,71 @@
+body {
+    background: radial-gradient( #fff, #fff 50%, #aaa);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+
+/* 嘴巴 */
+
+#baymax {
+    border-bottom: 1.5em solid #000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -40%);
+}
+
+
+/* 左眼 */
+
+#baymax::before {
+    animation: blink 6s infinite;
+    background: linear-gradient(to bottom, #efefef, #efefef 50%, #000 50%, #000);
+    background-position: 0 100%;
+    background-size: 100% 200%;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    width: 12em;
+    height: 12em;
+    left: -9em;
+    top: -5em;
+    transform: skewX(-4deg);
+}
+
+
+/* 右眼 */
+
+#baymax::after {
+    animation: blink 6s infinite;
+    background: linear-gradient(to bottom, #efefef, #efefef 50%, #000 50%, #000);
+    background-position: 0 100%;
+    background-size: 100% 200%;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    width: 12em;
+    height: 12em;
+    right: -9em;
+    top: -5em;
+    transform: skewX(4deg);
+}
+
+
+/* 关键帧 */
+
+@keyframes blink {
+    0%,
+    50% {
+        background-position: 0 100%;
+    }
+    85%,
+    95% {
+        background-position: 0 65%;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}

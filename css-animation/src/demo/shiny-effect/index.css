@@ -1,0 +1,43 @@
+/* body{
+background: radial-gradient( #fff, #fff 50%, #aaa);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+} */
+
+@keyframes sheen {
+  100% {
+    transform: rotateZ(50deg) translate(3em, -5em);
+  }
+}
+#shinyEffect{
+  background: #e5ac8e;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 0.5em;
+  padding: 0 1em;
+  position: relative;
+  left: 40%;
+  top: 50vh;
+  overflow: hidden;
+  line-height: 32px;
+  transition-duration: 0.5s;
+}
+
+#shinyEffect:hover{
+  transform: scale(2);
+}
+#shinyEffect:hover::after, #shinyEffect:focus::after {
+  animation: sheen 1s forwards;
+}
+
+#shinyEffect::after{
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+  transform: rotateZ(60deg) translate(-5em, 7.5em);
+}

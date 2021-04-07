@@ -1,0 +1,51 @@
+body {
+    background-color: #000;
+}
+
+button {
+    outline: none;
+    position: absolute;
+    left: calc(50% - 3.5em);
+    top: calc(50% - 2em);
+    color: #fff;
+    background-color: #444;
+    border: none;
+    height: 4em;
+    width: 7em;
+    border-top: 3px solid orange;
+    border-radius: 0 0 0.2em 0.2em;
+    transform-origin: 50% 5em;
+}
+
+button {
+    animation: wiggle 2s linear infinite;
+}
+
+
+/* Keyframes */
+
+@keyframes wiggle {
+    0%,
+    7% {
+        transform: rotateZ(0);
+    }
+    15% {
+        transform: rotateZ(-15deg);
+    }
+    20% {
+        transform: rotateZ(10deg);
+    }
+    25% {
+        transform: rotateZ(-10deg);
+    }
+    30% {
+        transform: rotateZ(6deg);
+    }
+    35% {
+        transform: rotateZ(-4deg);
+    }
+    40%,
+    100% {
+        transform: rotateZ(0);
+    }
+}

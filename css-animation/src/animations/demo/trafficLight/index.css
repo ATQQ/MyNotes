@@ -1,0 +1,114 @@
+body {
+    background-color: #1acbfc;
+}
+
+#traffic-light {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 22.5em;
+    width: 10em;
+    background: #333;
+    border-radius: 1em;
+    border: 0.5em solid #fff;
+}
+
+#traffic-light::after {
+    content: "";
+    width: 3em;
+    height: 15em;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #eee;
+}
+
+.light {
+    width: 6em;
+    height: 5.5em;
+    background-color: #000;
+    border-radius: 50%;
+    margin: 1em auto;
+    border-top: 0.5em solid #000;
+}
+
+
+/* .yellow {
+    background-color: yellow;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+} */
+
+@keyframes red {
+    0% {
+        background: black;
+    }
+    2%,
+    40% {
+        background-color: red;
+    }
+    42%,
+    100% {
+        background: black;
+    }
+}
+
+@keyframes yellow {
+    0%,
+    40% {
+        background: black;
+    }
+    42%,
+    50% {
+        background: yellow;
+    }
+    52%,
+    55% {
+        background: black;
+    }
+    57%,
+    65% {
+        background: yellow;
+    }
+    67%,
+    100% {
+        background: black;
+    }
+}
+
+@keyframes green {
+    0%,
+    70% {
+        background: black;
+    }
+    72%,
+    98% {
+        background: green;
+    }
+    100% {
+        background: black;
+    }
+}
+
+
+/* Animation properties */
+
+.red {
+    animation: red 10s linear infinite;
+}
+
+.yellow {
+    animation: yellow 10s linear infinite;
+}
+
+.green {
+    animation: green 10s linear infinite;
+}

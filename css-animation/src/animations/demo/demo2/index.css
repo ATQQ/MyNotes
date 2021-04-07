@@ -1,0 +1,156 @@
+/* Animation properties */
+
+.star {
+    animation: star 10s ease-out infinite;
+}
+
+.wars {
+    animation: wars 10s ease-out infinite;
+}
+
+.byline span {
+    animation: spin-letters 10s linear infinite;
+}
+
+.byline {
+    animation: move-byline 10s linear infinite;
+}
+
+
+/* Keyframes */
+
+@keyframes star {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(-0.75em);
+    }
+    20% {
+        opacity: 1;
+    }
+    89% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes wars {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(0.5em);
+    }
+    20% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes spin-letters {
+    0%,
+    10% {
+        opacity: 0;
+        transform: rotateX(90deg);
+        transform: rotateZ(180deg);
+    }
+    15% {
+        transform: rotateZ(0deg);
+    }
+    30% {
+        opacity: 1;
+    }
+    70%,
+    86% {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+    95%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes move-byline {
+    0% {
+        transform: translateZ(5em);
+    }
+    100% {
+        transform: translateZ(0);
+    }
+}
+
+body {
+    background: #000 url(//cssanimation.rocks/demo/starwars/images/bg.jpg);
+}
+
+.starwars-demo {
+    /* 指定浏览器中3D空间的深度 */
+    perspective: 800px;
+    /* 指定子元素定位在三维空间里面 */
+    transform-style: preserve3d;
+}
+
+.starwars-demo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 34em;
+    height: 17em;
+}
+
+#byline {
+    color: #fff;
+    font-family: "ITC Serif Gothic", Lato;
+    font-size: 2.25em;
+    left: -2em;
+    letter-spacing: 0.4em;
+    right: -2em;
+    text-align: center;
+    text-transform: uppercase;
+    top: 29%;
+}
+
+#byline span {
+    display: inline-block;
+}
+
+img {
+    width: 100%;
+}
+
+.star,
+.wars,
+.byline {
+    position: absolute;
+}
+
+.star {
+    top: -0.75em;
+}
+
+.wars {
+    bottom: -0.5em;
+}
+
+
+/*** Media queries for adjusting to different screen sizes ***/
+
+@media only screen and (max-width: 600px) {
+    .starwars-demo {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .starwars-demo {
+        font-size: 7px;
+    }
+}

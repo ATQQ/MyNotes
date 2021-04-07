@@ -1,0 +1,47 @@
+body {
+  background: #0bbea0;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+}
+.card{
+  background: #fff url(http://placekitten.com/350/450);
+  background-size: cover;
+  background-position: 0 0;
+  box-shadow: 0 0 5em rgba(0,0,0,0.4);
+  width: 18em;
+  height: 22em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.info{
+  background: #fff;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1em 1.5em;
+  overflow: hidden;
+  height: 4em;
+  transition: all 0.2s cubic-bezier(.48,-0.28,.41,1.4);
+}
+
+.text{
+  opacity: 0;
+  transform: translateY(2em);
+  transition: all 0.3s ease-in;
+}
+
+.card:hover .info{
+  height: 12em;
+}
+
+.card:hover .info .text{
+  opacity: 1;
+  transform: translateY(0);
+}

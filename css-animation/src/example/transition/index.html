@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transition</title>
+</head>
+<style>
+    button {
+        padding: 1em 2em;
+        background: #fff;
+        transition: background 1s linear;
+    }
+    
+    button:hover {
+        background: deeppink;
+    }
+    
+    #block {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translateX(-50%);
+        width: 12em;
+        height: 12em;
+        background: #000;
+        transition: width 1s linear, height 1s linear, background 1s ease-in-out;
+    }
+    
+    #block:hover {
+        background: burlywood;
+        width: 2em;
+        height: 2em;
+    }
+</style>
+
+<body>
+    <!-- 示例1 -->
+    <!-- <button>
+        按钮
+    </button> -->
+    <div id="block">
+
+    </div>
+
+</body>
+
+</html>
