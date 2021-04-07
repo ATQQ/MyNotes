@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>布局系统性复习</title>
+</head>
+
+<body>
+    <h1>没有布局</h1>
+    <div>杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章</div>
+    <hr>
+    <h1>margin:0 auto;width:600px</h1>
+    <div id="l1">
+        杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章
+    </div>
+    <hr>
+    <h1>margin:0 auto;max-width:600px</h1>
+    <div id="l2">
+        杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章杂乱无章
+    </div>
+    <hr>
+    <h1>盒模型</h1>
+    <div id="l3">
+        <div class="box1">1</div>
+        <h2>box-sizing: border-box;</h2>
+        <div class="box2">2</div>
+        <div class="box3">3</div>
+    </div>
+    <h1>position例子</h1>
+    <div class="container">
+        <nav>
+            <ul>
+                <li>a</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </nav>
+        <section>ssssssssss</section>
+        <section>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce
+            luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero
+            sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</section>
+        <section>aaaaaaaaaa</section>
+    </div>
+    <hr>
+    <h1>float例子</h1>
+    <div id="float-demo">
+        <img src="http://zh.learnlayout.com/images/ilta.png" alt=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas
+        nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis
+        dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras
+        ac leo purus. Mauris quis diam velit.
+    </div>
+    <hr>
+    <h1>clear</h1>
+    <div id="l4">
+        <div>貌似在浮动</div>
+        <section>在这个例子中， section 元素实际上是在 div 之后的（译注：DOM结构上）。然而 div 元素是浮动到左边的，于是 section 中的文字就围绕了 div ，并且 section 元素包围了整个元素。如果我们想让 section 显示在浮动元素之后呢？</section>
+    </div>
+    <hr>
+    <h1>float布局例子</h1>
+    <div class="container-float">
+        <nav>
+            <ul>
+                <li>a</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </nav>
+        <section>ssssssssss</section>
+        <section>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce
+            luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero
+            sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</section>
+        <section>aaaaaaaaaa</section>
+    </div>
+    <hr>
+    <h1>百分比+响应式布局</h1>
+    <div class="container-media">
+        <nav>
+            <ul>
+                <li>a</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </nav>
+        <section>ssssssssss</section>
+        <section>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce
+            luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero
+            sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</section>
+        <section>aaaaaaaaaa</section>
+    </div>
+    <hr>
+    <h1>inline-block</h1>
+    <div id="l5">
+        <div>
+            <h2>float+clear</h2>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="clear-float extract"></div>
+        </div>
+        <div>
+            <h2>inline-block</h2>
+            <div class="inline-block"></div>
+            <div class="inline-block"></div>
+            <div class="inline-block"></div>
+            <div class="inline-block"></div>
+            <div class="inline-block"></div>
+            <div class="extract"></div>
+        </div>
+    </div>
+    <h1>inline-block布局</h1>
+    <hr>
+    <div class="container-inline">
+        <nav>
+            <ul>
+                <li>a</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </nav>
+        <div class="right-area">
+            <section>ssssssssss</section>
+            <section>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.
+                Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac.
+                In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</section>
+            <section>aaaaaaaaaa</section>
+        </div>
+    </div>
+    <hr>
+    <h1>column</h1>
+    <div id="l6">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus
+        vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc
+        venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.
+
+    </div>
+    <hr>
+    <h1>flex-box</h1>
+    <div class="container-flex">
+        <nav>
+            <ul>
+                <li>a</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </nav>
+        <div class="right-area">
+            <section>ssssssssss</section>
+            <section>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.
+                Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac.
+                In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</section>
+            <section>aaaaaaaaaa</section>
+        </div>
+    </div>
+    <hr>
+    <h1>使用flex的牛逼布局</h1>
+    <div class="container-flex-super">
+        <div class="block1">空间足够的时候，我的宽度是200px，如果空间不足，我会变窄到100px，但不会再窄了。</div>
+        <div class="block2">无论窗口如何变化，我的宽度一直是200px。</div>
+        <div class="block3">占满剩余宽度的1/3。</div>
+        <div class="block4">我会占满剩余宽度的2/3。</div>
+    </div>
+    <hr>
+    <h1>居中布局</h1>
+    <div class="container-flex-center">
+        <div>我居中了</div>
+    </div>
+</body>
+
+</html>

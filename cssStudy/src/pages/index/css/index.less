@@ -1,0 +1,35 @@
+h2{
+    color: red;
+}
+
+// 第一题
+[class^="p1-"]{
+    background: #ddd;
+    width: 10em;
+    height: 3em;
+}
+// 方案1 外边距
+.p1-m1{
+    border-left:5px solid deeppink;
+    
+}
+
+//方案2 伪元素
+.p1-m2::after{
+    content:"";
+    display: block;
+    width:5px;
+    height: 3em;
+    background:deeppink;
+}
+
+//方案3 外阴影
+.p1-m3{
+    box-shadow: -5px 0 0 0 deeppink;
+}
+
+//方案4 内阴影
+.p1-m4{
+    box-shadow: inset 5px 0 0 0 deeppink;
+}
+

@@ -1,0 +1,230 @@
+.box {
+  &::before {
+    content: 'before';
+    margin-right: 10px;
+  }
+  &::after {
+    content: 'after';
+    margin-left: 10px;
+  }
+}
+
+.mark {
+  width: 30px;
+  height: 55px;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+  background-color: red;
+  text-align: center;
+  position: relative;
+  &::after,
+  &::before {
+    position: absolute;
+    content: '';
+    display: block;
+    border: 15px solid transparent;
+  }
+  &::after {
+    right: 0;
+    border-right: 15px solid red;
+    bottom: -15px;
+  }
+  &::before {
+    left: 0;
+    border-left: 15px solid red;
+    bottom: -15px;
+  }
+}
+.code {
+  margin-top: 20px;
+  &::before {
+    content: '"';
+    color: red;
+  }
+  &::after {
+    content: '"';
+    color: blue;
+  }
+  &:hover {
+    &::before,
+    &::after {
+      background-color: yellowgreen;
+    }
+  }
+}
+
+#moreAction {
+  display: none;
+}
+.fw-checkbox {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+#moreAction[type='checkbox']:checked {
+  + .fw-checkbox {
+    background-color: crimson;
+  }
+  + .fw-checkbox::before {
+    position: absolute;
+    display: inline-block;
+    content: '';
+    width: 6px;
+    height: 10px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    left: 3px;
+    bottom: 3px;
+  }
+}
+
+.bubble {
+  display: flex;
+  align-items: center;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  .chat {
+    position: relative;
+    background-color: cyan;
+    padding: 6px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      border: 10px solid transparent;
+      border-right: 10px solid cyan;
+    }
+  }
+}
+
+.pic {
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.pic,
+.pic::after,
+.pic::before {
+  width: 200px;
+  height: 150px;
+  border: 6px solid #fff;
+  box-shadow: 2px 2px 5px #ddd;
+}
+
+.pic::after,
+.pic::before {
+  content: '';
+  position: absolute;
+  background: #eff4de;
+  border: 6px solid #fff;
+}
+
+.pic::after {
+  transform: rotate(-2deg);
+  z-index: -2;
+  left: 0px;
+}
+
+.pic::before {
+  transform: rotate(-5deg);
+  z-index: -1;
+  left: 0px;
+}
+
+.link1::after {
+  content: '' attr(href) '';
+}
+.link2::after {
+  content: '' attr(id) '';
+}
+
+.icon::after {
+  content: url(http://img.cdn.sugarat.top/mdImg/MTU4MjExNzE5MjM3Ng==582117192376);
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+#square {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+}
+#circle {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  border-radius: 50%;
+}
+#triangle {
+  position: absolute;
+  right: 50%;
+  border: 50px solid transparent;
+  border-top: 50px solid #000;
+}
+#heart {
+  position: relative;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  transform: rotate(45deg);
+  &::before,
+  &::after {
+    position: absolute;
+    content: ' ';
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  &::after {
+    top: -25px;
+  }
+  &::before {
+    right: 25px;
+  }
+}
+
+#star {
+  position: absolute;
+  right: 50%;
+  border: 50px solid transparent;
+  border-top: 25px solid skyblue;
+  &::before,
+  &::after {
+    position: absolute;
+    right: 50%;
+    border: 50px solid transparent;
+    border-top: 25px solid skyblue;
+    content: ' ';
+    display: block;
+  }
+
+  &::after {
+    left: -40px;
+    top: -30px;
+    transform: rotate(-60deg);
+  }
+  &::before {
+    right: -39px;
+    top: -30px;
+    transform: rotate(64deg);
+  }
+}
