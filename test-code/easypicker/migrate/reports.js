@@ -1,4 +1,4 @@
-const { insertTableByModel, selectTableByModel } = require('../utils/sqlUtil')
+const { insertTableByModel, selectTableByModel, updateTableByModel } = require('../utils/sqlUtil')
 const { query } = require('../utils/mysql')
 const { getUniqueKey } = require('../utils/stringUtil')
 const { batchFileStatus } = require('../utils/qiniuUtil')
@@ -21,8 +21,16 @@ function selectTask(options) {
     return query(sql, ...params)
 }
 
-function insertPeople(people) {
-    const { sql, params } = insertTableByModel('people', people)
+function selectFiles(options) {
+    const { sql, params } = selectTableByModel('files', {
+        data: options
+    })
+    return query(sql, ...params)
+}
+
+
+function updateFile(file, q) {
+    const { sql, params } = updateTableByModel('files', file, q)
     return query(sql, ...params)
 }
 
@@ -31,6 +39,7 @@ function findUserReports(u, reports) {
         return r.username === u.username
     })
 }
+
 let sum = 0
 async function migrateReports(u, reports) {
     const reportList = findUserReports(u, reports)
@@ -78,11 +87,50 @@ async function migrateReports(u, reports) {
             info: JSON.stringify([{ "text": "姓名", "value": name }]),
             hash: md5,
             size,
-            people: name
+            people: name,
+            date
         })
+    }
+}
+let i = 0
+async function migrateReportsDate(u, reports) {
+    const reportList = findUserReports(u, reports)
+    // sum += reportList.length
+    // console.log(sum);
+    const { id: userId } = u
+    for (const r of reportList) {
+        const { course, tasks, filename, date, username, name } = r
+        const [category] = await selectCategory({
+            userId,
+            name: course
+        })
+        if (!category) {
+            continue
+        }
+        const [task] = await selectTask({
+            userId,
+            name: tasks,
+            categoryKey: category.k
+        })
+        if (!task) {
+            continue
+        }
+        const oldKey = `${username}/${course}/${tasks}/${filename}`
+        const files = await selectFiles({
+            categoryKey: oldKey
+        })
+        if (files.length >= 0) {
+            console.log(++i, date, oldKey);
+            await updateFile({
+                date
+            }, {
+                categoryKey: oldKey
+            })
+        }
     }
 }
 
 module.exports = {
-    migrateReports
+    migrateReports,
+    migrateReportsDate
 }

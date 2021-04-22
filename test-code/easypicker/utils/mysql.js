@@ -4,7 +4,12 @@ const { mysqlConfig } =require('./config')
 const pool = mysql.createPool(mysqlConfig)
 
 function getConnection() {
+    let coonection = null
     return new Promise((res, rej) => {
+        if(coon){
+            res(coon)
+            return
+        }
         pool.getConnection((err, coon) => {
             if (err) {
                 console.error('------ db connection error -------')
@@ -12,6 +17,7 @@ function getConnection() {
                 rej(err)
                 return
             }
+            coonection = coon
             res(coon)
         })
     })
@@ -37,7 +43,7 @@ function query(sql, ...params) {
                     return
                 }
                 // 请求完就释放
-                coon.release()
+                // coon.release()
                 resolve(result)
             })
         }).catch((err) => {
