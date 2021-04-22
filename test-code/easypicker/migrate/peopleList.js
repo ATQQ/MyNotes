@@ -27,24 +27,29 @@ function findUserPeople(u, people) {
         return p.admin_username === u.username
     })
 }
-let sum = 0
+let i = 0
 async function migratePeopleList(u, people) {
     const peopleList = findUserPeople(u, people)
-    sum+=peopleList.length
-    console.log(sum);
     const { id: userId } = u
     for (const p of peopleList) {
-        const { people_name, parentName, childName, status, last_date } = p
+        const { people_name, parent_name, child_name, status, last_date } = p
         const [category] = await selectCategory({
             userId,
-            name: parentName
+            name: parent_name
         })
-
+        if(!category){
+            continue
+        }
         const [task] = await selectTask({
             userId,
-            name: childName,
+            name: child_name,
             categoryKey: category.k
         })
+        if(!task){
+            continue
+        }
+        i += 1;
+        console.log(i, parent_name, child_name, people_name);
         await insertPeople({
             taskKey: task.k,
             userId,

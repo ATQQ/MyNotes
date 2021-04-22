@@ -3,11 +3,12 @@ const { mysqlConfig } =require('./config')
 // 创建连接池
 const pool = mysql.createPool(mysqlConfig)
 
+let coonection = null
+
 function getConnection() {
-    let coonection = null
     return new Promise((res, rej) => {
-        if(coon){
-            res(coon)
+        if(coonection){
+            res(coonection)
             return
         }
         pool.getConnection((err, coon) => {
