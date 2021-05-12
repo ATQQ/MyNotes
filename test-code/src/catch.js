@@ -11,16 +11,19 @@ function runtimeErrorInterceptor(e){
     console.log(e);
 }
 
-try {
-    const a = fn()
-    if(a instanceof Promise){
-        a.catch((e)=>{
-            console.log(1);
-            runtimeErrorInterceptor(e)
-        })
+;(async ()=>{
+    try {
+        const a = fn()
+        if(a instanceof Promise){
+            // a.catch((e)=>{
+            //     console.log(1);
+            //     runtimeErrorInterceptor(e)
+            // })
+            await a
+        }
+        // fn2()
+    } catch (e) {
+        console.log(2);
+        runtimeErrorInterceptor(e)
     }
-    fn2()
-} catch (e) {
-    console.log(2);
-    runtimeErrorInterceptor(e)
-}
+})()
